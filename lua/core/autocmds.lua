@@ -1,0 +1,3 @@
+-- フェーズ2時点ではautocmdなし
+-- 今後autocmd追加時はここに書く．
+-- require("core.autocmds")は既にinit.luaから呼ばれている
