@@ -28,7 +28,7 @@ require("lazy").setup({
     spec = {
         { import = "plugins" }
     },
-    install = { colorscheme = {} },
+    install = { colorscheme = { "kanagawa" } },
     checker = { enabled = false },
     rocks = { enabled = false }
 })
