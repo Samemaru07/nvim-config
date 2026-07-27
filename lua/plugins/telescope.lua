@@ -9,5 +9,11 @@ return {
         { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
         { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find Buffers" },
         { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Help Tags" }
-    }
+    },
+    -- keysで読み込まれた後，fzf-native拡張を明示的に有効化する
+    -- load_extensionはtelescope自身のsetup()とは独立した処理なので，
+    -- ops (自動setup呼び出し) ではなくconfigで手動で呼ぶ必要がある．
+    config = function()
+        require("telescope").load_extension("fzf")
+    end
 }
