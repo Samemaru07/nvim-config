@@ -5,7 +5,7 @@ vim.opt.cursorline = true
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
 vim.opt.scrolloff = 8
-vim.opt.wrap = false 
+vim.opt.wrap = false
 
 -- インデント
 vim.opt.tabstop = 4
@@ -37,3 +37,5 @@ vim.opt.clipboard = "unnamedplus"
 -- if not is_wsl then
 --  -- [Arch 専用・保留]
 --  end
+--
+vim.opt.foldlevelstart = 99
