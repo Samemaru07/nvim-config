@@ -9,6 +9,8 @@ return {
 			"prettier", -- conform.nvim: html/css/js/ts/markdown
 			"shfmt", -- conform.nvim: sh
 			"shellcheck", -- nvim-lint: sh
+			"clang-format", -- confogrm.nvim: c
+			"cpplint", -- nvim-lint: c
 		},
 	},
 }
