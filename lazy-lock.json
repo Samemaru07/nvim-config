@@ -37,6 +37,7 @@
   "nvim-treesitter-textobjects": { "branch": "main", "commit": "898ee307df58f854d11cd7edd06472574d48014e" },
   "nvim-web-devicons": { "branch": "master", "commit": "2ae6958df7ced50baac5035cec0c15799eedfbf7" },
   "plenary.nvim": { "branch": "master", "commit": "74b06c6c75e4eeb3108ec01852001636d85a932b" },
+  "pum.vim": { "branch": "main", "commit": "28183eeef35023f2b940c1a3ddebc01a06a8e519" },
   "skkeleton": { "branch": "main", "commit": "b530eac5a859ce2f8fa4d99fa5cd83b9d3199086" },
   "skkeleton-henkan-highlight": { "branch": "main", "commit": "361ca90537e9cf7cd404899a4ed0bbef03124fd8" },
   "skkeleton_indicator.nvim": { "branch": "v2", "commit": "b3e5379db47ed86a2f0f6fd9ae2c30a0e8119c23" },
