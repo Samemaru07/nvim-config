@@ -7,6 +7,7 @@ return {
 		local languages = {
 			"lua",
 			"python",
+			"c",
 			"latex",
 			"markdown",
 			"markdown_inline", -- markdownと対で必要 (コードブロック内等のインライン要素のハイライト用)
