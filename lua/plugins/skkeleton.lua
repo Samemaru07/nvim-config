@@ -4,6 +4,7 @@ return {
 	lazy = false,
 	dependencies = {
 		"vim-denops/denops.vim",
+		"Shougo/ddc.vim",
 	},
 	config = function()
 		vim.fn["skkeleton#config"]({
@@ -14,5 +15,27 @@ return {
 			markerHenkan = "▼",
 			markerHenkanSelect = "▼",
 		})
+
+		vim.fn["ddc#custom#patch_global"]({
+			ui = "pum",
+			sources = { "skkeleton" },
+			sourceOptions = {
+				skkeleton = {
+					mark = "skkeleton",
+					matchers = {},
+					sorters = {},
+					converters = {},
+					isVolatile = true,
+					minAutoCompleteLength = 1,
+				},
+			},
+			autoCompleteEvents = {
+				"InsertEnter",
+				"TextChangedI",
+				"TextChangedP",
+			},
+		})
+
+		vim.fn["ddc#enable"]()
 	end,
 }
