@@ -9,11 +9,11 @@ end
 return {
 	"benlubas/molten-nvim",
 	version = "^1.0.0",
-	ft = { "python" },
+	lazy = false,
 	build = ":UpdateRemotePlugins",
 	dependencies = { "3rd/image.nvim" },
 	init = function()
-		vim.g.python3_host_prog = vim.fn.exepath("python3")
+		vim.g.python3_host_prog = vim.fn.expand("~/anaconda3/envs/py313/bin/python")
 
 		if is_wsl() then
 			vim.g.molten_image_provider = "none"
