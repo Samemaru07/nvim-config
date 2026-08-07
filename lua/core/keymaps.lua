@@ -167,19 +167,18 @@ map({ "n", "v" }, "<leader><Down>", ":m .+1<CR>==", opts)
 map("v", "<leader><Up>", ":m '<-2<CR>gv=gv", opts)
 map("v", "<leader><Down>", ":m '>+1<CR>gv=gv", opts)
 
--- Phase 7でskkeleton導入予定のため一時コメントアウト
--- vim.api.nvim_create_autocmd("User", {
---     pattern = "skkeleton-initialize-pre",
---     callback = function()
---         vim.fn["skkeleton#register_keymap"]("input", "q", "katakana")
---         vim.fn["skkeleton#register_keymap"]("input", "Q", "hankatakana")
---         vim.fn["skkeleton#register_keymap"]("input", "<C-j>", "disable")
---         vim.fn["skkeleton#register_keymap"]("input", "<C-g>", "escape")
---         vim.fn["skkeleton#register_keymap"]("henkan", "<C-g>", "escape")
---     end,
--- })
---
--- map({ "i", "c" }, "<C-j>", [[<Plug>(skkeleton-toggle)]], { remap = true })
+vim.api.nvim_create_autocmd("User", {
+	pattern = "skkeleton-initialize-pre",
+	callback = function()
+		vim.fn["skkeleton#register_keymap"]("input", "q", "katakana")
+		vim.fn["skkeleton#register_keymap"]("input", "Q", "hankatakana")
+		vim.fn["skkeleton#register_keymap"]("input", "<C-j>", "disable")
+		vim.fn["skkeleton#register_keymap"]("input", "<C-g>", "escape")
+		vim.fn["skkeleton#register_keymap"]("henkan", "<C-g>", "escape")
+	end,
+})
+
+map({ "i", "c" }, "<C-j>", [[<Plug>(skkeleton-toggle)]], { remap = true })
 
 -- nvim-surround
 map("n", "<leader>w", "ysiw", { remap = true, desc = "Surround Word" })
