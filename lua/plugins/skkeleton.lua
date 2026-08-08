@@ -18,7 +18,7 @@ return {
 
 		vim.fn["ddc#custom#patch_global"]({
 			ui = "pum",
-			sources = { "skkeleton" },
+			sources = {},
 			sourceOptions = {
 				skkeleton = {
 					mark = "skkeleton",
@@ -37,5 +37,22 @@ return {
 		})
 
 		vim.fn["ddc#enable"]()
+
+		local prev_buffer_config
+
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "skkeleton-enable-pre",
+			callback = function()
+				prev_buffer_config = vim.fn["ddc#custom#get_buffer"]()
+				vim.fn["ddc#custom#patch_buffer"]("sources", { "skkeleton" })
+			end,
+		})
+
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "skkeleton-disable-pre",
+			callback = function()
+				vim.fn["ddc#custom#set_buffer"](prev_buffer_config)
+			end,
+		})
 	end,
 }
