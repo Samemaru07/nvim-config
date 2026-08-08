@@ -1,9 +1,6 @@
 return {
 	"GCBallesteros/NotebookNavigator.nvim",
 	ft = { "python" },
-	dependencies = {
-		"echasnovski/mini.comment",
-	},
 	keys = {
 		{
 			"]h",
