@@ -1,11 +1,3 @@
-local function is_wsl()
-	local output = vim.fn.systemlist("uname -r")
-	if not output[1] then
-		return false
-	end
-	return output[1]:lower():find("microsoft") ~= nil
-end
-
 return {
 	"benlubas/molten-nvim",
 	version = "^1.0.0",
@@ -15,18 +7,15 @@ return {
 	init = function()
 		vim.g.python3_host_prog = vim.fn.expand("~/anaconda3/envs/py313/bin/python")
 
-		if is_wsl() then
-			vim.g.molten_image_provider = "none"
-			vim.g.molten_auto_image_popup = true
-		else
-			vim.g.molten_image_provider = "image.nvim"
-		end
+		vim.g.molten_image_provider = "none"
+		vim.g.molten_auto_image_popup = true
 
 		vim.g.molten_auto_open_output = true
 		vim.g.molten_wrap_output = true
 		vim.g.molten_virt_text_output = false
 		vim.g.molten_virt_lines_off_by_1 = true
-		vim.g.molten_output_win_max_height = 45
+		vim.g.molten_output_win_max_height = 100
+		vim.g.molten_output_show_exec_time = false
 	end,
 	config = function()
 		local map = vim.keymap.set
