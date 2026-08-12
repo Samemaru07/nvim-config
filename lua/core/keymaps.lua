@@ -31,15 +31,14 @@ local function format_and_save()
 
 		local ft = vim.bo.filetype
 
-		-- TODO: Phase 7でvimtex導入後に有効化
-		-- if ft == "tex" or ft == "latex" or ft == "bib" then
-		--     local info = vim.b.vimtex
-		--     if info and type(info.compiler) == "table" then
-		--         if info.compiler.status ~= 2 then
-		--             vim.cmd("VimtexCompile")
-		--         end
-		--     end
-		-- end
+		if ft == "tex" or ft == "latex" or ft == "bib" then
+			local info = vim.b.vimtex
+			if info and type(info.compiler) == "table" then
+				if info.compiler.status ~= 2 then
+					vim.cmd("VimtexCompile")
+				end
+			end
+		end
 
 		-- TODO: Phase 7でvim-processing導入後に有効化
 		-- if ft == "processing" then
