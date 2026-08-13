@@ -29,13 +29,19 @@ vim.opt.backup = false
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath("state") .. "/undo"
 
--- クリップボード (WSL: win32yank自動検出．Archではxclip/wl-clipboard要確認
-vim.opt.clipboard = "unnamedplus"
+if vim.fn.has("wsl") == 1 then
+	vim.g.clipboard = {
+		name = "win32yank",
+		copy = {
+			["+"] = "win32yank.exe -i --crlf",
+			["*"] = "win32yank.exe -i --crlf",
+		},
+		paste = {
+			["+"] = "win32yank.exe -o --lf",
+			["*"] = "win32yank.exe -o --lf",
+		},
+		cache_enabled = 0,
+	}
+end
 
--- OS別設定
--- local is_wsl = vim.fn.has("wsl") == 1
--- if not is_wsl then
---  -- [Arch 専用・保留]
---  end
---
 vim.opt.foldlevelstart = 99
