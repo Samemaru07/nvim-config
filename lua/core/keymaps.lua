@@ -295,3 +295,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("n", "]d", vim.diagnostic.goto_next, vim.tbl_extend("force", buf_opts, { desc = "Next diagnostic" }))
     end,
 })
+
+-- Lazygit
+local lazygit
+
+map("n", "<leader>g", function()
+	if not lazygit then
+		local Terminal = require("toggleterm.terminal").Terminal
+		lazygit = Terminal:new({
+			cmd = "lazygit",
+			hidden = true,
+			direction = "float",
+			on_open = function(term)
+				vim.cmd("startinsert!")
+				map("t", "q", function()
+					term:close()
+				end, { buffer = term.bufnr, noremap = true, silent = true })
+			end,
+		})
+	end
+	lazygit:toggle()
+end, opts)
