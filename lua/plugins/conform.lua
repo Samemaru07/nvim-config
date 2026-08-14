@@ -21,5 +21,10 @@ return {
 			timeout_ms = 500,
 			lsp_format = "fallback", -- formatters_by_ftに未定義のftはLSPのフォーマット機能にフォールバック
 		},
+		formatters = {
+			prettier = {
+				prepend_args = { "--tab-width", "4" },
+			},
+		},
 	},
 }
