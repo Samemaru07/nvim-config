@@ -1,5 +1,5 @@
 -- noice.nvimの通知のバックエンド
 return {
-    "rcarriga/nvim-notify",
-    lazy = true
+	"rcarriga/nvim-notify",
+	lazy = true,
 }

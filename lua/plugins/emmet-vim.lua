@@ -1,7 +1,7 @@
 return {
-    "mattn/emmet-vim",
-    ft = { "html", "css", "javascriptreact", "typescriptreact", "vue", "svelte" },
-    init = function()
-        vim.g.user_emmet_leader_key = "<leader>m"
-    end
+	"mattn/emmet-vim",
+	ft = { "html", "css", "javascriptreact", "typescriptreact", "vue", "svelte" },
+	init = function()
+		vim.g.user_emmet_leader_key = "<leader>m"
+	end,
 }
