@@ -16,9 +16,6 @@ map("n", "<C-g>", "<Nop>", { silent = true, nowait = true })
 map("t", "<C-Right>", "\x1bf")
 map("t", "<C-Left>", "\x1bb")
 
--- TODO: vim-processing 導入時に使用
--- local processing_job_id = nil
-
 -- ヘルパー: レジスタの行数を数える
 local function count_lines(text)
 	if text == "" then
@@ -67,39 +64,6 @@ local function format_and_save()
 				end
 			end
 		end
-
-		-- TODO: Phase 7でvim-processing導入後に有効化
-		-- if ft == "processing" then
-		--     if processing_job_id then
-		--         vim.fn.jobstop(processing_job_id)
-		--     end
-		--
-		--     local dir = vim.fn.expand("%:p:h")
-		--     processing_job_id = vim.fn.jobstart("processing-java --sketch=" .. dir .. " --run", {
-		--         stderr_buffered = true,
-		--         on_stderr = function(_, data)
-		--             if data and #data > 0 then
-		--                 local items = {}
-		--                 for _, line in ipairs(data) do
-		--                     local file, lnum, col, msg = line:match("(.+):(%d+):(%d+):%d+:%d+: (.+)")
-		--                     if file and lnum then
-		--                         table.insert(items, {
-		--                             filename = file,
-		--                             lnum = tonumber(lnum),
-		--                             col = tonumber(col),
-		--                             text = msg,
-		--                             type = "E",
-		--                         })
-		--                     end
-		--                 end
-		--                 if #items > 0 then
-		--                     vim.fn.setqflist(items)
-		--                     vim.cmd("copen")
-		--                 end
-		--             end
-		--         end,
-		--     })
-		-- end
 	end)
 end
 
@@ -112,7 +76,6 @@ end, opts)
 
 map("n", "<leader>q", "<cmd>Bdelete!<CR>", opts)
 
--- TODO: lua/data/messages.lua移植後, notify_random経由の通知付き処理に戻す
 map({ "n", "v" }, "<C-c>", function()
 	local old_shortmess = vim.o.shortmess
 	vim.o.shortmess = old_shortmess .. "A"
