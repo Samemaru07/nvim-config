@@ -1,8 +1,49 @@
--- 画面丈夫のバッファ一覧タブ．
 return {
 	"akinsho/bufferline.nvim", -- タグ付けされた最新のものを追う(指定していないと，mainの最新コミット)
 	version = "*",
 	event = "VeryLazy",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
-	opts = {},
+	opts = {
+		options = {
+			mode = "buffers",
+			numbers = function(opts)
+				return string.format("%d:", opts.ordinal)
+			end,
+			diagnostics = "nvim_lsp",
+			diagnostics_indicator = function(count, level)
+				local icon = level:match("error") and " " or " "
+				return " " .. icon .. count
+			end,
+			separator_style = "thick",
+			show_buffer_close_icons = false,
+			show_close_icon = false,
+			color_icons = true,
+			offsets = {
+				{
+					filetype = "neo-tree",
+					text = "エクスプローラ",
+					text_align = "center",
+					separator = true,
+				},
+			},
+			hover = {
+				enabled = true,
+				delay = 200,
+				reveal = { "close" },
+			},
+			indicator = {
+				style = "none",
+			},
+			tab_size = 20,
+			padding = 1,
+			custom_filter = function(buf_num)
+				local buf_name = vim.fn.bufname(buf_num)
+				local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = buf_num })
+				if buf_name == "" and buf_ft == "" then
+					return false
+				end
+				return true
+			end,
+		},
+	},
 }
