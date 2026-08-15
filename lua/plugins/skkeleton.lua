@@ -45,6 +45,7 @@ return {
 			callback = function()
 				prev_buffer_config = vim.fn["ddc#custom#get_buffer"]()
 				vim.fn["ddc#custom#patch_buffer"]("sources", { "skkeleton" })
+				vim.b.skkeleton_active = true
 			end,
 		})
 
@@ -52,6 +53,7 @@ return {
 			pattern = "skkeleton-disable-pre",
 			callback = function()
 				vim.fn["ddc#custom#set_buffer"](prev_buffer_config)
+				vim.b.skkeleton_active = false
 			end,
 		})
 	end,
