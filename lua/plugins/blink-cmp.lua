@@ -17,6 +17,11 @@ return {
 		},
 		completion = {
 			documentation = { auto_show = true },
+			list = {
+				selection = {
+					preselect = false,
+				},
+			},
 		},
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer", "emoji" },
