@@ -1,5 +1,5 @@
 return {
-	"neovim-treesitter/nvim-treesitter",
+	"nvim-treesitter/nvim-treesitter",
 	dependencies = { "neovim-treesitter/treesitter-parser-registry" },
 	lazy = false,
 	build = ":TSUpdate",
@@ -10,7 +10,7 @@ return {
 			"c",
 			"latex",
 			"markdown",
-			"markdown_inline", -- markdownと対で必要 (コードブロック内等のインライン要素のハイライト用)
+			"markdown_inline",
 			"html",
 			"css",
 			"typescript",
