@@ -4,6 +4,9 @@ return {
 	dependencies = { "rafamadriz/friendly-snippets", "moyiz/blink-emoji.nvim" },
 	event = "InsertEnter",
 	opts = {
+		enabled = function()
+			return not vim.b.skkeleton_active
+		end,
 		keymap = {
 			preset = "enter",
 			["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
