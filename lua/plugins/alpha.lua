@@ -38,34 +38,51 @@ return {
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⢹⣿⣿⣿⣿⣿⣿⠄⠄⠄⠄⠄⠄⠄⠄⢸⣿⣿⣿⣿⣿⣧⡀⠄⠄⠄⠄⠄⠄⠄⠄⠹⣿⡄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣿⣿⣿⣿⣮⡻⣿⣿⣿⣿⣿⣿⣿⣿⡟⣸⣿⣿⣿⣿⣿⢏⣼⣿⢇⣾⣿⣿⡿⣡⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⢿⣿⣿⣿⣿⡟⠄⠄⠄⠄⠄⠄⠄⠄⣿⣿⣿⣿⣿⣿⣿⣷⣄⠄⠄⠄⠄⠄⠄⠄⠄⠘⢷⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⡄⠄⠄⠄⠄⠄⠄⠄⢸⣿⣿⣿⣿⣿⣎⢿⣿⣿⣿⣿⣿⣿⢡⣿⣿⣿⣿⣿⢃⣾⣿⡏⣼⣿⣿⢋⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿⣿⣿⡇⠄⠄⠄⠄⠄⠄⠄⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡀⠄⠄⠄⠄⠄⠄⠄⠈⠃⠄⠄⠄⠄⠄⠄⠄⠄⠄⣸⣿⡀⠄⠄⠄⠄⠄⠄⠘⣿⣿⣿⣿⣿⣿⣷⡻⣿⣿⣿⣿⢃⣿⣿⣿⣿⡿⢃⣾⣿⡿⣰⡿⢛⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⣿⣿⣿⣿⡇⠄⠄⠄⠄⠄⠄⠄⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣰⣿⣿⣿⡄⠄⠄⠄⠄⠄⠄⢻⣿⣿⣿⣿⣿⣿⣷⣹⣿⡿⢣⣾⣿⣿⣿⡟⣱⣿⣿⡿⡱⣋⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
         ]]
 		dashboard.section.header.val = vim.split(header_art, "\n")
 
-		dashboard.section.buttons.val = {
-			dashboard.button("f", "📄  Find File", "<cmd>Telescope find_files<cr>"),
-			dashboard.button("e", "🔍  File Explorer", "<cmd>Neotree toggle<cr>"),
-			dashboard.button("q", "❌  Quit", "<cmd>qa<cr>"),
+		dashboard.section.buttons.type = "text"
+		dashboard.section.buttons.val = "📄 [f] Find File    🔍 [e] File Explorer    ❌ [q] Quit"
+		dashboard.section.buttons.opts = {
+			position = "center",
+			hl = "Keyword",
 		}
 
-		dashboard.section.footer.val = {
+		local footer_quote = {
 			"    『        よーし、頑張ってこー！無理しすぎんなよ？",
 			"      ……ふふ、なんかそうやって頑張ってるの、見てるといいなって思うんだ。』",
 			"",
-			"                    ⚡ Neovim loaded in ...ms",
 		}
+
+		local function footer_val(ms)
+			local lines = vim.deepcopy(footer_quote)
+			table.insert(lines, "                    ⚡ Neovim loaded in " .. ms .. "ms")
+			return lines
+		end
+
+		dashboard.section.footer.val = footer_val("...")
 
 		-- ヘッダー → フッター (セリフ・起動時間) → ボタン (クイック操作) の順に並び替え
 		dashboard.config.layout = {
-			{ type = "padding", val = 2 },
+			{ type = "padding", val = 1 },
 			dashboard.section.header,
-			{ type = "padding", val = 2 },
+			{ type = "padding", val = 1 },
 			dashboard.section.footer,
-			{ type = "padding", val = 2 },
+			{ type = "padding", val = 1 },
 			dashboard.section.buttons,
 		}
 
 		alpha.setup(dashboard.config)
+
+		-- ボタンを1行にまとめたため、ショートカットキーはバッファローカルで手動定義する
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = "alpha",
+			callback = function(ev)
+				vim.keymap.set("n", "f", "<cmd>Telescope find_files<cr>", { buffer = ev.buf, silent = true })
+				vim.keymap.set("n", "e", "<cmd>Neotree toggle<cr>", { buffer = ev.buf, silent = true })
+				vim.keymap.set("n", "q", "<cmd>qa<cr>", { buffer = ev.buf, silent = true })
+			end,
+		})
 
 		-- 起動完了後 (VeryLazy) に正確な起動時間で footer を再計算し、再描画する
 		vim.api.nvim_create_autocmd("User", {
@@ -73,12 +90,7 @@ return {
 			callback = function()
 				local stats = require("lazy").stats()
 				local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-				dashboard.section.footer.val = {
-					"    『        よーし、頑張ってこー！無理しすぎんなよ？",
-					"      ……ふふ、なんかそうやって頑張ってるの、見てるといいなって思うんだ。』",
-					"",
-					"                    ⚡ Neovim loaded in " .. ms .. "ms",
-				}
+				dashboard.section.footer.val = footer_val(ms)
 				pcall(vim.cmd.AlphaRedraw)
 			end,
 		})
