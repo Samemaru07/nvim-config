@@ -4,7 +4,7 @@ return {
 	config = function()
 		require("hlchunk").setup({
 			chunk = {
-				enable = false,
+				enable = true,
 			},
 		})
 	end,
