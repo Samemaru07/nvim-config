@@ -159,12 +159,6 @@ map("x", "x", function()
 	notify_random(messages.cut, vim.log.levels.WARN, lines_str(vim.fn.getreg("+")))
 end, opts)
 
-map("i", "<C-h>", "<C-w>", opts)
-map("n", "<C-h>", "db", opts)
-
-map("i", "<C-l>", "<C-o>de", opts)
-map("n", "<C-l>", "de", opts)
-
 map({ "n", "v" }, "<leader>bv", "<cmd>vsplit<CR>", opts)
 map({ "n", "v" }, "<leader>bh", "<cmd>split<CR>", opts)
 
