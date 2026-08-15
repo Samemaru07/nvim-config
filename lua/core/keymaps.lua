@@ -215,6 +215,15 @@ vim.api.nvim_create_autocmd("User", {
 	end,
 })
 
+-- SKK有効時、blink.cmpの補完ウィンドウが開いたま残り続けるバグの対策
+-- (skkeletonが補完テキストの変化をblink.cmpに正しく伝えられず、自動で閉じないため)
+vim.api.nvim_create_autocmd("User", {
+	pattern = "skkeleton-enable-pre",
+	callback = function()
+		require("blink.cmp").hide()
+	end,
+})
+
 map({ "i", "c" }, "<C-j>", [[<Plug>(skkeleton-toggle)]], { remap = true })
 
 -- nvim-surround
