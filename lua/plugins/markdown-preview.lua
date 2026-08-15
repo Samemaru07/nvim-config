@@ -4,13 +4,22 @@ return {
 	cmd = { "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle" },
 	build = "cd app && npm install",
 	init = function()
-		-- デフォルトのブラウザ起動処理を差し替え、Hyperのwebview機能でプレビューURLを開く
-		-- TODO: Hyper側のwebview起動コマンドが確定したら、下記コマンド文字列を実装に合わせて書き換える
+		-- デフォルトのブラウザ起動処理を差し替え、Hyperのwebview機能でプレビューURLを開く。
+		-- Hyperの分割ペイン (webview表示待受中) へ貼り付けて使う想定
+		-- VimScript側からnotifyを呼び出すため、Lua関数を _G に公開
+		_G.mkdp_preview_url_notify = function()
+			vim.notify(
+				"プレビュー用のURLをクリップボードに送りましたーっ！ さあさあ、ブラウザを開いて接続してみてくださいよぉ！",
+				vim.log.levels.INFO,
+				{ title = "[タチコマ] ネットは広大だわ…じゃなくて！" }
+			)
+		end
+
 		vim.g.mkdp_browserfunc = "OpenMarkdownPreviewInHyperWebview"
 		vim.cmd([[
       function! OpenMarkdownPreviewInHyperWebview(url)
-        " 例: Hyper側にURLを渡すコマンドをここに実装する
-        " call system('hyper-webview-open ' . shellescape(a:url))
+        call setreg('+', a:url)
+      call v:lua.mkdp_preview_url_notify()
       endfunction
     ]])
 	end,
