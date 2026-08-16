@@ -3,7 +3,7 @@ return {
 	lazy = false,
 	tag = "v2.18",
 	init = function()
-		local socket = "/tmp/nvimsocket-" .. vim.env.NVIM_APPNAME
+		local socket = "/tmp/nvim-socket-" .. (vim.env.NVIM_APPNAME or "nvim")
 
 		vim.fn.delete(socket)
 		vim.fn.serverstart(socket)
