@@ -138,17 +138,21 @@ curl -o ~/.skk/SKK-JISYO.L https://raw.githubusercontent.com/skk-dev/dict/master
 
 ##### 5. TeX Environment Setup
 
-Required if you want to compile LaTeX (`.tex`) files.
+Required if you want to compile and preview LaTeX (`.tex`) files.
 This is not mandatory.
 
 <details>
 <summary>For Arch Linux</summary>
 
 ```bash
-sudo pacman -S texlive-basic texlive-latex texlive-latexextra texlive-luatex texlive-langjapanese
+sudo pacman -S texlive-basic texlive-latex texlive-latexextra texlive-luatex texlive-langjapanese zathura zathura-pdf-mupdf
 ```
 
-If you have enough storage space, you can perform a full installation using sudo pacman -S texlive-meta.
+- If you have enough storage space, you can perform a full installation as follows (`texlive-meta` does not include the Japanese environment, so it must be specified separately):
+
+```bash
+sudo pacman -S texlive-meta texlive-langjapanese zathura zathura-pdf-mupdf
+```
 
 </details>
 
@@ -156,10 +160,14 @@ If you have enough storage space, you can perform a full installation using sudo
 <summary>For Ubuntu</summary>
 
 ```bash
-sudo apt install texlive-latex-extra texlive-luatex texlive-lang-japanese latexmk
+sudo apt install texlive-latex-extra texlive-luatex texlive-lang-japanese latexmk zathura
 ```
 
-If you have enough storage space, you can perform a full installation using sudo apt install texlive-full.
+- If you have enough storage space, you can perform a full installation as follows:
+
+```bash
+sudo apt install texlive-full zathura
+```
 
 </details>
 
