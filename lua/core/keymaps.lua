@@ -44,26 +44,35 @@ local function notify_random(list, level, fmt_arg)
 end
 
 local function format_and_save()
+	local bufnr = vim.api.nvim_get_current_buf()
 	local conform = require("conform")
-	conform.format({ quiet = true }, function(err)
-		if err and not err:find("No formatters available") then
-			vim.fn.setqflist({ { text = "Conform: " .. err, type = "E" } })
-			vim.cmd("copen")
-		end
-		if vim.fn.expand("%") ~= "" then
-			vim.cmd("write")
-		end
 
-		local ft = vim.bo.filetype
+	conform.format({ quiet = true, bufnr = bufnr }, function(err)
+		vim.schedule(function()
+			if err and not err:find("No formatters available") then
+				vim.fn.setqflist({ { text = "Conform: " .. err, type = "E" } })
+				vim.cmd("copen")
+			end
 
-		if ft == "tex" or ft == "latex" or ft == "bib" then
-			local info = vim.b.vimtex
-			if info and type(info.compiler) == "table" then
-				if info.compiler.status ~= 2 then
-					vim.cmd("VimtexCompile")
+			if vim.api.nvim_buf_get_name(bufnr) ~= "" then
+				vim.api.nvim_buf_call(bufnr, function()
+					vim.cmd("write")
+				end)
+			end
+
+			local ft = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+
+			if ft == "tex" or ft == "latex" or ft == "bib" then
+				local ok, info = pcall(vim.api.nvim_buf_get_var, bufnr, "vimtex")
+				if ok and type(info) == "table" and type(info.compiler) == "table" then
+					vim.api.nvim_buf_call(bufnr, function()
+						if info.compiler.status ~= 2 then
+							vim.cmd("VimtexCompile")
+						end
+					end)
 				end
 			end
-		end
+		end)
 	end)
 end
 
