@@ -140,17 +140,21 @@ curl -o ~/.skk/SKK-JISYO.L https://raw.githubusercontent.com/skk-dev/dict/master
 
 ##### 5. TeX環境の構築
 
-LaTeXファイル(`.tex`)をコンパイルする場合に必要です。
+LaTeXファイル(`.tex`)をコンパイルおよびプレビューする場合に必要です。
 必須ではありません。
 
 <details>
 <summary>Archの場合</summary>
 
 ```bash
-sudo pacman -S texlive-basic texlive-latex texlive-latexextra texlive-luatex texlive-langjapanese
+sudo pacman -S texlive-basic texlive-latex texlive-latexextra texlive-luatex texlive-langjapanese zathura zathura-pdf-mupdf
 ```
 
-※ ストレージに余裕がある場合は、`sudo pacman -S texlive-meta` でフルインストールが可能です。
+※ ストレージに余裕がある場合のフルインストール環境構築は以下の通りです（`texlive-meta`には日本語環境が含まれないため、個別の指定が必要です）。
+
+```bash
+sudo pacman -S texlive-meta texlive-langjapanese zathura zathura-pdf-mupdf
+```
 
 </details>
 
@@ -158,10 +162,14 @@ sudo pacman -S texlive-basic texlive-latex texlive-latexextra texlive-luatex tex
 <summary>Ubuntuの場合</summary>
 
 ```bash
-sudo apt install texlive-latex-extra texlive-luatex texlive-lang-japanese latexmk
+sudo apt install texlive-latex-extra texlive-luatex texlive-lang-japanese latexmk zathura
 ```
 
-※ ストレージに余裕がある場合は、`sudo apt install texlive-full` でフルインストールが可能です。
+※ ストレージに余裕がある場合のフルインストール環境構築は以下の通りです。
+
+```bash
+sudo apt install texlive-full zathura
+```
 
 </details>
 
