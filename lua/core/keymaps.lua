@@ -103,7 +103,7 @@ map({ "n", "v" }, "<C-v>", function()
 	notify_random(messages.paste, vim.log.levels.INFO, lines_str(vim.fn.getreg("+")))
 end, opts)
 
-map("i", "<C-v>", '<C-o>"+p', opts)
+map("i", "<C-v>", "<C-r>+", opts)
 
 local function select_all()
 	vim.cmd("normal! ggVG")
