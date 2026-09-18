@@ -4,7 +4,7 @@ return {
 	lazy = false,
 	build = ":TSUpdate",
 	config = function()
-		local languages = {
+		local parsers = {
 			"lua",
 			"python",
 			"c",
@@ -14,14 +14,30 @@ return {
 			"html",
 			"css",
 			"typescript",
+			"tsx",
 			"javascript",
 			"bash",
 		}
 
-		require("nvim-treesitter").install(languages)
+		local filetypes = {
+			"lua",
+			"python",
+			"c",
+			"tex",
+			"markdown",
+			"html",
+			"css",
+			"typescript",
+			"typescriptreact",
+			"javascript",
+			"javascriptreact",
+			"sh",
+		}
+
+		require("nvim-treesitter").install(parsers)
 
 		vim.api.nvim_create_autocmd("FileType", {
-			pattern = languages,
+			pattern = filetypes,
 			callback = function()
 				vim.treesitter.start()
 				vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
