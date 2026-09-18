@@ -4,7 +4,7 @@ vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 3
 vim.opt.wrap = false
 
 -- インデント
