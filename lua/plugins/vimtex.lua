@@ -11,6 +11,7 @@ return {
 		vim.g.vimtex_compiler_progname = "/home/samemaru/.local/bin/nvr"
 		vim.g.vimtex_compiler_method = "latexmk"
 		vim.g.vimtex_compiler_latexmk_engines = { _ = "-lualatex" }
+		vim.g.vimtex_indent_debug = 0
 		vim.g.vimtex_compiler_latexmk = {
 			continuous = 1,
 			out_dir = ".build",
