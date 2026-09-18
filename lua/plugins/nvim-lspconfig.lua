@@ -40,4 +40,13 @@ return {
 			"typescriptreact",
 		},
 	}),
+
+	vim.lsp.config("tailwindcss", {
+		filetypes = {
+			"html",
+			"css",
+			"javascriptreact",
+			"typescriptreact",
+		},
+	}),
 }
