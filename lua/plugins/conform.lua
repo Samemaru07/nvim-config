@@ -13,9 +13,14 @@ return {
 			html = { "prettier" },
 			css = { "prettier" },
 			javascript = { "prettier" },
+			javascriptreact = { "prettier" },
 			typescript = { "prettier" },
+			typescriptreact = { "prettier" },
+			json = { "prettier" },
+			jsonc = { "prettier" },
 			markdown = { "prettier" },
 			sh = { "shfmt" },
+			tex = { "latexindent" },
 		},
 		format_on_save = {
 			timeout_ms = 500,
@@ -24,6 +29,9 @@ return {
 		formatters = {
 			prettier = {
 				prepend_args = { "--tab-width", "4" },
+			},
+			latexindent = {
+				prepend_args = { "-g", "/dev/null" },
 			},
 		},
 	},
