@@ -18,6 +18,7 @@ return {
 			"ts_ls",
 			"bashls",
 			"emmet_ls",
+			"tailwindcss",
 		},
 	},
 }
