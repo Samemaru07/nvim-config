@@ -17,6 +17,7 @@ return {
 			"cssls",
 			"ts_ls",
 			"bashls",
+			"emmet_ls",
 		},
 	},
 }
