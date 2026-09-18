@@ -31,4 +31,13 @@ return {
 			on_dir(root or vim.fs.dirname(fname))
 		end,
 	}),
+
+	vim.lsp.config("emmet_ls", {
+		filetypes = {
+			"html",
+			"css",
+			"javascriptreact",
+			"typescriptreact",
+		},
+	}),
 }
