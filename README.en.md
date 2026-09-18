@@ -495,7 +495,7 @@ nvim
 | ------------ | ---- | ---------------------------------------------- |
 | `<Tab>`      | i    | Next candidate when PUM is visible             |
 | `<S-Tab>`    | i    | Previous candidate when PUM is visible         |
-| `<leader>m`  | n    | Emmet prefix for previously entered text       |
+| `<leader>m,` | n    | Emmet prefix for previously entered text       |
 | `<leader>w`  | n    | Surround word with next typed paired character |
 | `<leader>W`  | n    | Surround line with next typed paired character |
 | `<leader>dq` | n    | Delete quotes                                  |
