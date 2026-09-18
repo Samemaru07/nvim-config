@@ -8,6 +8,11 @@ return {
 		vim.lsp.config("*", {
 			capabilities = capabilities,
 		})
+
+		vim.diagnostic.config({
+			virtual_text = true,
+			virtual_lines = { current_line = true },
+		})
 	end,
 
 	-- プロジェクトマーカがない単発スクリプトの場合、CWD全体ではなくそのファイル自身のディレクトリをルートにして無駄な全走査を防ぐ
