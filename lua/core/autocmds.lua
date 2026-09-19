@@ -1,3 +1,4 @@
--- フェーズ2時点ではautocmdなし
--- 今後autocmd追加時はここに書く．
--- require("core.autocmds")は既にinit.luaから呼ばれている
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+	pattern = "*",
+	command = "if mode() != 'c' | checktime | endif",
+})
