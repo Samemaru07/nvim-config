@@ -45,3 +45,5 @@ if vim.fn.has("wsl") == 1 then
 end
 
 vim.opt.foldlevelstart = 99
+
+vim.opt.autoread = true
