@@ -16,6 +16,7 @@ return {
 			filtered_items = {
 				visible = true, -- .gitignore対象の隠しファイルも表示する
 			},
+			use_libuv_file_watcher = true,
 		},
 		window = {
 			width = 30,
