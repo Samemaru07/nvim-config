@@ -275,14 +275,15 @@ nvim
 <details>
 <summary>ツール</summary>
 
-| プラグイン名                                                                             | 説明               |
-| ---------------------------------------------------------------------------------------- | ------------------ |
-| [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)                       | ファジーファインダ |
-| [nvim-spectre](https://github.com/nvim-pack/nvim-spectre)                                | 検索置換UI         |
-| [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)                              | Git差分表示        |
-| [telescope-fzf-native.nvim](https://github.com/nvim-telescope/telescope-fzf-native.nvim) | Telescope高速化    |
-| [plenary.nvim](https://github.com/nvim-lua/plenary.nvim)                                 | Lua関数ライブラリ  |
-| [vim-bbye](https://github.com/moll/vim-bbye)                                             | バッファ削除補助   |
+| プラグイン名                                                                             | 説明                          |
+| ---------------------------------------------------------------------------------------- | ----------------------------- |
+| [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)                       | ファジーファインダ            |
+| [nvim-spectre](https://github.com/nvim-pack/nvim-spectre)                                | 検索置換UI                    |
+| [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)                              | Git差分表示                   |
+| [telescope-fzf-native.nvim](https://github.com/nvim-telescope/telescope-fzf-native.nvim) | Telescope高速化               |
+| [plenary.nvim](https://github.com/nvim-lua/plenary.nvim)                                 | Lua関数ライブラリ             |
+| [vim-bbye](https://github.com/moll/vim-bbye)                                             | バッファ削除補助              |
+| [oil.nvim](https://github.com/stevearc/oil.nvim)                                         | ファイル操作 (バッファ編集型) |
 
 </details>
 
@@ -398,6 +399,10 @@ nvim
 | `<leader>bh`  | n, v   | 水平分割                                      |
 | `<leader>g`   | n      | LazyGit起動                                   |
 | `<leader>;`   | n      | Winbarのシンボル選択 (パンくずナビゲーション) |
+| `<leader>o`   | n      | Oil起動 (フローティング)                      |
+| `q`           | n      | Oil終了 (oilバッファ内)                       |
+| `<C-s>`       | n      | 変更保存 (oilバッファ内)                      |
+| `-`           | n      | 親ディレクトリへ移動 (oilバッファ内)          |
 
 </details>
 
