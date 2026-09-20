@@ -15,6 +15,13 @@ return {
 	-- load_extensionはtelescope自身のsetup()とは独立した処理なので，
 	-- ops (自動setup呼び出し) ではなくconfigで手動で呼ぶ必要がある．
 	config = function()
+		require("telescope").setup({
+			defaults = {
+				mappings = {
+					i = { ["<C-j>"] = false },
+				},
+			},
+		})
 		require("telescope").load_extension("fzf")
 	end,
 }
