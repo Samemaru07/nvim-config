@@ -173,7 +173,34 @@ sudo apt install texlive-full zathura
 
 </details>
 
-##### 6. 初回起動
+##### 6. GitHub CLIの導入と認証
+
+octo.nvimによるGitHub連携 (Issue / PR操作) を利用する場合に必要です。
+必須ではありません。
+
+<details>
+<summary>Archの場合</summary>
+
+```bash
+sudo pacman -S github-cli
+gh auth login
+```
+
+</details>
+
+<details>
+<summary>Ubuntuの場合</summary>
+
+```bash
+sudo apt install gh
+gh auth login
+```
+
+</details>
+
+> **💡 Note:** `gh auth login` でブラウザまたは認証トークンを用いてGitHubアカウントへログインしてください。
+
+##### 7. 初回起動
 
 ```bash
 nvim
@@ -284,6 +311,7 @@ nvim
 | [plenary.nvim](https://github.com/nvim-lua/plenary.nvim)                                 | Lua関数ライブラリ             |
 | [vim-bbye](https://github.com/moll/vim-bbye)                                             | バッファ削除補助              |
 | [oil.nvim](https://github.com/stevearc/oil.nvim)                                         | ファイル操作 (バッファ編集型) |
+| [octo.nvim](https://github.com/pwntester/octo.nvim)                                      | GitHub Issue/PR操作           |
 
 </details>
 
@@ -398,6 +426,7 @@ nvim
 | `<leader>bv`  | n, v   | 垂直分割                                      |
 | `<leader>bh`  | n, v   | 水平分割                                      |
 | `<leader>g`   | n      | LazyGit起動                                   |
+| `<leader>gp`  | n      | PR一覧表示 (Octo)                             |
 | `<leader>;`   | n      | Winbarのシンボル選択 (パンくずナビゲーション) |
 | `<leader>o`   | n      | Oil起動 (フローティング)                      |
 | `q`           | n      | Oil終了 (oilバッファ内)                       |

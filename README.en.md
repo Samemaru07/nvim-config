@@ -171,7 +171,34 @@ sudo apt install texlive-full zathura
 
 </details>
 
-##### 6. First Startup
+##### 6. Install and Authenticate GitHub CLI
+
+Required if you want to use GitHub integration (Issue / PR operations) with octo.nvim.
+This is not mandatory.
+
+<details>
+<summary>For Arch Linux</summary>
+
+```bash
+sudo pacman -S github-cli
+gh auth login
+```
+
+</details>
+
+<details>
+<summary>For Ubuntu</summary>
+
+```bash
+sudo apt install gh
+gh auth login
+```
+
+</details>
+
+> **💡 Note:** Use `gh auth login` to sign in to your GitHub account through a browser or with an authentication token.
+
+##### 7. First Startup
 
 ```bash
 nvim
@@ -281,6 +308,8 @@ nvim
 | [telescope-fzf-native.nvim](https://github.com/nvim-telescope/telescope-fzf-native.nvim) | Telescope acceleration |
 | [plenary.nvim](https://github.com/nvim-lua/plenary.nvim)                                 | Lua function library   |
 | [vim-bbye](https://github.com/moll/vim-bbye)                                             | Buffer deletion helper |
+| [oil.nvim](https://github.com/stevearc/oil.nvim)                                         | File operations (buffer editing) |
+| [octo.nvim](https://github.com/pwntester/octo.nvim)                                      | GitHub Issue/PR operations      |
 
 </details>
 
@@ -395,7 +424,12 @@ nvim
 | `<leader>bv`  | n, v | Split vertically                              |
 | `<leader>bh`  | n, v | Split horizontally                            |
 | `<leader>g`   | n    | Launch LazyGit                                |
+| `<leader>gp`  | n    | List pull requests (Octo)                     |
 | `<leader>;`   | n    | Select Winbar symbol (Breadcrumbs navigation) |
+| `<leader>o`   | n    | Launch Oil (floating)                          |
+| `q`           | n    | Exit Oil (in an oil buffer)                    |
+| `<C-s>`       | n    | Save changes (in an oil buffer)                |
+| `-`           | n    | Move to the parent directory (in an oil buffer) |
 
 </details>
 
