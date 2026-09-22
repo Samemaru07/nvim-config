@@ -1,4 +1,3 @@
--- GitHubのIssue・PRをNeovim内で操作するツール
 return {
 	"pwntester/octo.nvim",
 	dependencies = {
@@ -21,13 +20,35 @@ return {
 				-- 破棄時のコア Segfault を防止
 				vim.bo[args.buf].undolevels = -1
 
-				-- PRテンプレート内のタブジャンプ
-				vim.keymap.set("n", "<Tab>", function()
-					if vim.fn.search("<++>") ~= 0 then
-						local feed = vim.api.nvim_replace_termcodes("cf>", true, false, true)
-						vim.api.nvim_feedkeys(feed, "m", false)
+				-- 検索レジスタを <++> に設定
+				local function jump_placeholder()
+					if vim.fn.search("<++>", "W") ~= 0 then
+						-- 検索レジスタ @/ を直接更新して cgn で削除・インサートへ移行
+						vim.fn.setreg("/", "<++>")
+						local feed = vim.api.nvim_replace_termcodes("cgn", true, false, true)
+						vim.api.nvim_feedkeys(feed, "n", false)
+						return true
 					end
+					return false
+				end
+
+				-- ノーマルモード
+				vim.keymap.set("n", "<Tab>", function()
+					jump_placeholder()
 				end, { buffer = args.buf, silent = true, desc = "Jump to next placeholder" })
+
+				-- インサートモード（補完メニュー非表示時のみジャンプ）
+				vim.keymap.set("i", "<Tab>", function()
+					if vim.fn.pumvisible() == 0 and vim.fn.search("<++>", "nW") ~= 0 then
+						local esc = vim.api.nvim_replace_termcodes("<Esc>", true, false, true)
+						vim.api.nvim_feedkeys(esc, "n", false)
+						vim.schedule(jump_placeholder)
+						return
+					end
+
+					local tab = vim.api.nvim_replace_termcodes("<Tab>", true, false, true)
+					vim.api.nvim_feedkeys(tab, "n", false)
+				end, { buffer = args.buf, silent = true, desc = "Jump to next placeholder (insert)" })
 			end,
 		})
 	end,
