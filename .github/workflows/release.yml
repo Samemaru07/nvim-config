@@ -1,0 +1,57 @@
+name: Release Draft
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  draft-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: リリースノートを生成
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          PREV_TAG=$(git tag --sort=-creatordate | grep -v "^${TAG}$" | head -n 1)
+
+          if [ -z "$PREV_TAG" ]; then
+            RANGE="$TAG"
+          else
+            RANGE="${PREV_TAG}..${TAG}"
+          fi
+
+          FEATURES=$(git log "$RANGE" --pretty=format:"%s" | grep -E "^(add|update|refactor|remove)(\(.+\))?: " | sed -E 's/^[a-z]+(\(.+\))?: /- /')
+          FIXES=$(git log "$RANGE" --pretty=format:"%s" | grep -E "^fix(\(.+\))?: " | sed -E 's/^fix(\(.+\))?: /- /')
+
+          {
+            echo "## 新機能・変更点"
+            if [ -n "$FEATURES" ]; then echo "$FEATURES"; else echo "- なし"; fi
+            echo ""
+            echo "## バグ修正"
+            if [ -n "$FIXES" ]; then echo "$FIXES"; else echo "- なし"; fi
+            echo ""
+            echo "---"
+            echo ""
+            echo "## 特徴"
+            echo "### コードを書きたい、そんな気持ちをくすぐる最高のエディタがここに。"
+            echo "- CからHTML, Pythonまで、使用率の高いメジャーな言語の設定が集約。"
+            echo "- Skkeletonが導入されていて、日本語入力に特化。"
+            echo "- LuaLaTeX / BibTeXにも対応、論文執筆もお手の物。"
+            echo "- どんなに大変な作業でも、沢山のアニメキャラクターが見守り、声を掛けてくれます。"
+          } > release_notes.md
+
+      - name: ドラフトリリースを作成
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            --draft \
+            --title "${GITHUB_REF_NAME}" \
+            --notes-file release_notes.md
