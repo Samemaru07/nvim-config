@@ -1,21 +1,3 @@
-name: Release Draft
-
-on:
-  push:
-    tags:
-      - "v*.*.*"
-
-permissions:
-  contents: write
-
-jobs:
-  draft-release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
       - name: リリースノートを生成
         run: |
           TAG="${GITHUB_REF_NAME}"
@@ -27,15 +9,38 @@ jobs:
             RANGE="${PREV_TAG}..${TAG}"
           fi
 
-          FEATURES=$(git log "$RANGE" --pretty=format:"%s" | grep -E "^(add|update|refactor|remove)(\(.+\))?: " | sed -E 's/^[a-z]+(\(.+\))?: /- /')
-          FIXES=$(git log "$RANGE" --pretty=format:"%s" | grep -E "^fix(\(.+\))?: " | sed -E 's/^fix(\(.+\))?: /- /')
+          git log --pretty=format:"%s" "$RANGE" | grep -v "^Merge pull request" | python3 -c "
+          import sys, re
+
+          lines = [re.sub(r' \(#\d+\)$', '', l.strip()) for l in sys.stdin if l.strip()]
+
+          parsed = []
+          for line in lines:
+              m = re.match(r'^(\w+)(?:\(([^)]*)\))?:\s*(.+)$', line)
+              if not m:
+                  continue
+              type_name, scope, desc = m.groups()
+              parsed.append((type_name, scope or '', desc))
+
+          new_scopes = {scope for (t, scope, _) in parsed if t == 'add' and scope}
+
+          features, fixes = [], []
+          for type_name, scope, desc in parsed:
+              if type_name == 'fix' and scope in new_scopes and scope:
+                  continue
+              elif type_name == 'fix':
+                  fixes.append(desc)
+              else:
+                  features.append(desc)
+
+          def section(items):
+              return chr(10).join(f'- {i}' for i in items) if items else '- なし'
+
+          print(f'## 新機能・変更点\n{section(features)}\n\n## バグ修正\n{section(fixes)}')
+          " > release_body.md
 
           {
-            echo "## 新機能・変更点"
-            if [ -n "$FEATURES" ]; then echo "$FEATURES"; else echo "- なし"; fi
-            echo ""
-            echo "## バグ修正"
-            if [ -n "$FIXES" ]; then echo "$FIXES"; else echo "- なし"; fi
+            cat release_body.md
             echo ""
             echo "---"
             echo ""
