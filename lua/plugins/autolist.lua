@@ -68,26 +68,30 @@ return {
 				end
 				local cur = vim.api.nvim_buf_get_lines(0, row - 1, row, false)[1] or ""
 				local prev = vim.api.nvim_buf_get_lines(0, row - 2, row - 1, false)[1] or ""
-				if is_empty_marker(cur) and is_empty_marker(prev) then
+
+				-- 前行がテキスト未入力の空マーカーのままEnterを押した場合、マーカーを消去して平文に戻す
+				if is_empty_marker(prev) and (cur == "" or is_empty_marker(cur)) then
 					vim.api.nvim_buf_set_lines(0, row - 2, row, false, { "" })
 					vim.api.nvim_win_set_cursor(0, { row - 1, 0 })
 					return
 				end
 
-				-- 前行がリストで、改行直後（空行または未完了マーカー）の場合のマーカー自動補完
-				if cur == "" or is_empty_marker(cur) then
-					local prev_indent, prev_num = prev:match("^(%s*)(%d+)%.%s+")
+				-- 前行が内容のあるリストの場合のみ、改行直後に次行マーカーを自動補完
+				if cur == "" then
+					local prev_indent, prev_num = prev:match("^(%s*)(%d+)%.%s+(%S+)")
 					if prev_num then
-						local next_num = tostring(tonumber(prev_num) + 1)
-						local new_line = prev_indent .. next_num .. ". "
+						local indent, num = prev:match("^(%s*)(%d+)%.%s+")
+						local next_num = tostring(tonumber(num) + 1)
+						local new_line = indent .. next_num .. ". "
 						vim.api.nvim_buf_set_lines(0, row - 1, row, false, { new_line })
 						vim.api.nvim_win_set_cursor(0, { row, #new_line })
 						return
 					end
 
-					local prev_indent_bullet, prev_bullet = prev:match("^(%s*)([%-%*%+])%s+")
+					local prev_indent_bullet, prev_bullet = prev:match("^(%s*)([%-%*%+])%s+(%S+)")
 					if prev_bullet then
-						local new_line = prev_indent_bullet .. prev_bullet .. " "
+						local indent, bullet = prev:match("^(%s*)([%-%*%+])%s+")
+						local new_line = indent .. bullet .. " "
 						vim.api.nvim_buf_set_lines(0, row - 1, row, false, { new_line })
 						vim.api.nvim_win_set_cursor(0, { row, #new_line })
 					end
