@@ -20,7 +20,7 @@ return {
 			local opts = { buffer = true }
 
 			vim.opt_local.comments = { "b:-", "b:*", "b:+", "b:1." }
-			vim.opt_local.formatoptions:append("r")
+			vim.opt_local.formatoptions:remove("r")
 
 			vim.keymap.set("i", "<Tab>", function()
 				if vim.fn["pum#visible"]() then
@@ -39,7 +39,7 @@ return {
 			vim.keymap.set("n", "o", "o<cmd>AutolistNewBullet<cr>", opts)
 			vim.keymap.set("n", "O", "O<cmd>AutolistNewBulletBefore<cr>", opts)
 			vim.keymap.set("n", "<CR>", "<cmd>AutolistToggleCheckbox<cr><CR>", opts)
-			vim.keymap.set("n", "<C-r>", "<cmd>AutolistRecalculate<cr>", opts)
+			vim.keymap.set("n", "<leader>r", "<cmd>AutolistRecalculate<cr>")
 			vim.keymap.set({ "n", "v" }, ">>", ">><cmd>AutolistRecalculate<cr>", opts)
 			vim.keymap.set({ "n", "v" }, "<<", "<<<cmd>AutolistRecalculate<cr>", opts)
 			vim.keymap.set("n", "dd", "dd<cmd>AutolistRecalculate<cr>", opts)
@@ -71,6 +71,26 @@ return {
 				if is_empty_marker(cur) and is_empty_marker(prev) then
 					vim.api.nvim_buf_set_lines(0, row - 2, row, false, { "" })
 					vim.api.nvim_win_set_cursor(0, { row - 1, 0 })
+					return
+				end
+
+				-- 前行がリストで、改行直後（空行または未完了マーカー）の場合のマーカー自動補完
+				if cur == "" or is_empty_marker(cur) then
+					local prev_indent, prev_num = prev:match("^(%s*)(%d+)%.%s+")
+					if prev_num then
+						local next_num = tostring(tonumber(prev_num) + 1)
+						local new_line = prev_indent .. next_num .. ". "
+						vim.api.nvim_buf_set_lines(0, row - 1, row, false, { new_line })
+						vim.api.nvim_win_set_cursor(0, { row, #new_line })
+						return
+					end
+
+					local prev_indent_bullet, prev_bullet = prev:match("^(%s*)([%-%*%+])%s+")
+					if prev_bullet then
+						local new_line = prev_indent_bullet .. prev_bullet .. " "
+						vim.api.nvim_buf_set_lines(0, row - 1, row, false, { new_line })
+						vim.api.nvim_win_set_cursor(0, { row, #new_line })
+					end
 				end
 			end,
 		})
