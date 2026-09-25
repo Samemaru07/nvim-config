@@ -22,8 +22,20 @@ return {
 			vim.opt_local.comments = { "b:-", "b:*", "b:+", "b:1." }
 			vim.opt_local.formatoptions:append("r")
 
-			vim.keymap.set("i", "<Tab>", "<cmd>AutolistTab<cr>", opts)
-			vim.keymap.set("i", "<S-Tab>", "<cmd>AutolistShiftTab<cr>", opts)
+			vim.keymap.set("i", "<Tab>", function()
+				if vim.fn["pum#visible"]() then
+					vim.fn["pum#map#insert_relative"](1)
+					return
+				end
+				vim.cmd("AutolistTab")
+			end, opts)
+			vim.keymap.set("i", "<S-Tab>", function()
+				if vim.fn["pum#visible"]() then
+					vim.fn["pum#map#insert_relative"](-1)
+					return
+				end
+				vim.cmd("AutolistShiftTab")
+			end, opts)
 			vim.keymap.set("n", "o", "o<cmd>AutolistNewBullet<cr>", opts)
 			vim.keymap.set("n", "O", "O<cmd>AutolistNewBulletBefore<cr>", opts)
 			vim.keymap.set("n", "<CR>", "<cmd>AutolistToggleCheckbox<cr><CR>", opts)
