@@ -30,12 +30,12 @@ return {
 				vim.cmd("AutolistTab")
 			end, opts)
 			vim.keymap.set("i", "<S-Tab>", function()
-				if vim.fn["pum#visible"]() then
+				if vim.fn["pum#visible"]() == 1 then
 					vim.fn["pum#map#insert_relative"](-1)
 					return
 				end
 				vim.cmd("AutolistShiftTab")
-			end, opts)
+			end, { buffer = true })
 			vim.keymap.set("n", "o", "o<cmd>AutolistNewBullet<cr>", opts)
 			vim.keymap.set("n", "O", "O<cmd>AutolistNewBulletBefore<cr>", opts)
 			vim.keymap.set("n", "<CR>", "<cmd>AutolistToggleCheckbox<cr><CR>", opts)
