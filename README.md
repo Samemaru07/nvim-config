@@ -270,15 +270,16 @@ nvim
 <details>
 <summary>エディタ</summary>
 
-| プラグイン名                                                                                  | 説明             |
-| --------------------------------------------------------------------------------------------- | ---------------- |
-| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                         | シンタックス解析 |
-| [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) | TextObject拡張   |
-| [nvim-autopairs](https://github.com/windwp/nvim-autopairs)                                    | 括弧自動補完     |
-| [Comment.nvim](https://github.com/numToStr/Comment.nvim)                                      | コメントトグル   |
-| [nvim-surround](https://github.com/kylechui/nvim-surround)                                    | 囲み文字操作     |
-| [flash.nvim](https://github.com/folke/flash.nvim)                                             | 高速移動         |
-| [emmet-vim](https://github.com/mattn/emmet-vim)                                               | HTML/CSS展開     |
+| プラグイン名                                                                                  | 説明                   |
+| --------------------------------------------------------------------------------------------- | ---------------------- |
+| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                         | シンタックス解析       |
+| [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) | TextObject拡張         |
+| [nvim-autopairs](https://github.com/windwp/nvim-autopairs)                                    | 括弧自動補完           |
+| [Comment.nvim](https://github.com/numToStr/Comment.nvim)                                      | コメントトグル         |
+| [nvim-surround](https://github.com/kylechui/nvim-surround)                                    | 囲み文字操作           |
+| [flash.nvim](https://github.com/folke/flash.nvim)                                             | 高速移動               |
+| [emmet-vim](https://github.com/mattn/emmet-vim)                                               | HTML/CSS展開           |
+| [autolist.nvim](https://github.com/gaoDean/autolist.nvim)                                     | リスト自動継続・再計算 |
 
 </details>
 
@@ -402,6 +403,7 @@ nvim
 | `xx`                     | n             | 行カット                           |
 | `d` / `x`                | v             | 削除 / カット                      |
 | `+/-`                    | n             | 数値インクリメント/デクリメント    |
+| `<leader>r`              | n             | リスト番号の再計算                 |
 | `<S-e>`                  | n, v          | 対応する括弧へジャンプ             |
 | `<C-\>`                  | i, n, t       | ターミナルをトグル                 |
 
@@ -527,16 +529,16 @@ nvim
 <details>
 <summary>補完 / その他</summary>
 
-| キー         | モード | 動作                                    |
-| ------------ | ------ | --------------------------------------- |
-| `<Tab>`      | i      | PUM(補完ウィンドウ)表示時に次候補へ移動 |
-| `<S-Tab>`    | i      | PUM(補完ウィンドウ)表示時に前候補へ移動 |
-| `<leader>m,` | n      | 直前に入力したEmmetのプレフィクス       |
-| `<leader>w`  | n      | 単語を直後に入力する括弧系で囲む        |
-| `<leader>W`  | n      | 行を直後に入力する括弧系で囲む          |
-| `<leader>dq` | n      | 引用符削除                              |
-| `<leader>cq` | n      | 引用符を直後に入力する文字に変更        |
-| `<leader>rr` | n      | Neovim設定リロード                      |
+| キー         | モード | 動作                                           |
+| ------------ | ------ | ---------------------------------------------- |
+| `<Tab>`      | i      | PUM表示時に次候補へ移動 / リスト階層を深くする |
+| `<S-Tab>`    | i      | PUM表示時に前候補へ移動 / リスト階層を浅くする |
+| `<leader>m,` | n      | 直前に入力したEmmetのプレフィクス              |
+| `<leader>w`  | n      | 単語を直後に入力する括弧系で囲む               |
+| `<leader>W`  | n      | 行を直後に入力する括弧系で囲む                 |
+| `<leader>dq` | n      | 引用符削除                                     |
+| `<leader>cq` | n      | 引用符を直後に入力する文字に変更               |
+| `<leader>rr` | n      | Neovim設定リロード                             |
 
 </details>
 

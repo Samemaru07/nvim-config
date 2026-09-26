@@ -268,15 +268,16 @@ nvim
 <details>
 <summary>Editor</summary>
 
-| Plugin                                                                                        | Description          |
-| --------------------------------------------------------------------------------------------- | -------------------- |
-| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                         | Syntax parsing       |
-| [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) | TextObject extension |
-| [nvim-autopairs](https://github.com/windwp/nvim-autopairs)                                    | Auto-close pairs     |
-| [Comment.nvim](https://github.com/numToStr/Comment.nvim)                                      | Comment toggle       |
-| [nvim-surround](https://github.com/kylechui/nvim-surround)                                    | Surround operations  |
-| [flash.nvim](https://github.com/folke/flash.nvim)                                             | Fast navigation      |
-| [emmet-vim](https://github.com/mattn/emmet-vim)                                               | HTML/CSS expansion   |
+| Plugin                                                                                        | Description            |
+| --------------------------------------------------------------------------------------------- | ---------------------- |
+| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                         | Syntax parsing         |
+| [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) | TextObject extension   |
+| [nvim-autopairs](https://github.com/windwp/nvim-autopairs)                                    | Auto-close pairs       |
+| [Comment.nvim](https://github.com/numToStr/Comment.nvim)                                      | Comment toggle         |
+| [nvim-surround](https://github.com/kylechui/nvim-surround)                                    | Surround operations    |
+| [flash.nvim](https://github.com/folke/flash.nvim)                                             | Fast navigation        |
+| [emmet-vim](https://github.com/mattn/emmet-vim)                                               | HTML/CSS expansion     |
+| [autolist.nvim](https://github.com/gaoDean/autolist.nvim)                                     | リスト自動継続・再計算 |
 
 </details>
 
@@ -300,16 +301,16 @@ nvim
 <details>
 <summary>Tools</summary>
 
-| Plugin                                                                                   | Description            |
-| ---------------------------------------------------------------------------------------- | ---------------------- |
-| [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)                       | Fuzzy finder           |
-| [nvim-spectre](https://github.com/nvim-pack/nvim-spectre)                                | Search and replace UI  |
-| [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)                              | Git diff display       |
-| [telescope-fzf-native.nvim](https://github.com/nvim-telescope/telescope-fzf-native.nvim) | Telescope acceleration |
-| [plenary.nvim](https://github.com/nvim-lua/plenary.nvim)                                 | Lua function library   |
-| [vim-bbye](https://github.com/moll/vim-bbye)                                             | Buffer deletion helper |
+| Plugin                                                                                   | Description                      |
+| ---------------------------------------------------------------------------------------- | -------------------------------- |
+| [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)                       | Fuzzy finder                     |
+| [nvim-spectre](https://github.com/nvim-pack/nvim-spectre)                                | Search and replace UI            |
+| [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)                              | Git diff display                 |
+| [telescope-fzf-native.nvim](https://github.com/nvim-telescope/telescope-fzf-native.nvim) | Telescope acceleration           |
+| [plenary.nvim](https://github.com/nvim-lua/plenary.nvim)                                 | Lua function library             |
+| [vim-bbye](https://github.com/moll/vim-bbye)                                             | Buffer deletion helper           |
 | [oil.nvim](https://github.com/stevearc/oil.nvim)                                         | File operations (buffer editing) |
-| [octo.nvim](https://github.com/pwntester/octo.nvim)                                      | GitHub Issue/PR operations      |
+| [octo.nvim](https://github.com/pwntester/octo.nvim)                                      | GitHub Issue/PR operations       |
 
 </details>
 
@@ -400,6 +401,7 @@ nvim
 | `xx`                     | n             | Cut line                          |
 | `d` / `x`                | v             | Delete / Cut                      |
 | `+/-`                    | n             | Increment/Decrement number        |
+| `<leader>r`              | n             | Recalculate list numbers          |
 | `<S-e>`                  | n, v          | Jump to matching pair             |
 | `<C-\>`                  | i, n, t       | Toggle terminal                   |
 
@@ -408,27 +410,27 @@ nvim
 <details>
 <summary>Files / Search / Buffers</summary>
 
-| Key           | Mode | Action                                        |
-| ------------- | ---- | --------------------------------------------- |
-| `<leader>e`   | n    | Toggle file tree                              |
-| `<leader>ff`  | n    | Find files                                    |
-| `<leader>fg`  | n    | Live grep across all files                    |
-| `<leader>fb`  | n    | List buffers                                  |
-| `<leader>fh`  | n    | Search help tags                              |
-| `<leader>fc`  | n    | Search & replace UI (Spectre)                 |
-| `<leader>sr`  | n    | Toggle Spectre                                |
-| `<leader>bd`  | n    | Delete buffer                                 |
-| `<leader>.`   | n    | Next buffer                                   |
-| `<leader>,`   | n    | Previous buffer                               |
-| `<leader>1-9` | n    | Go to buffer 1-9                              |
-| `<leader>bv`  | n, v | Split vertically                              |
-| `<leader>bh`  | n, v | Split horizontally                            |
-| `<leader>g`   | n    | Launch LazyGit                                |
-| `<leader>gp`  | n    | List pull requests (Octo)                     |
-| `<leader>;`   | n    | Select Winbar symbol (Breadcrumbs navigation) |
-| `<leader>o`   | n    | Launch Oil (floating)                          |
-| `q`           | n    | Exit Oil (in an oil buffer)                    |
-| `<C-s>`       | n    | Save changes (in an oil buffer)                |
+| Key           | Mode | Action                                          |
+| ------------- | ---- | ----------------------------------------------- |
+| `<leader>e`   | n    | Toggle file tree                                |
+| `<leader>ff`  | n    | Find files                                      |
+| `<leader>fg`  | n    | Live grep across all files                      |
+| `<leader>fb`  | n    | List buffers                                    |
+| `<leader>fh`  | n    | Search help tags                                |
+| `<leader>fc`  | n    | Search & replace UI (Spectre)                   |
+| `<leader>sr`  | n    | Toggle Spectre                                  |
+| `<leader>bd`  | n    | Delete buffer                                   |
+| `<leader>.`   | n    | Next buffer                                     |
+| `<leader>,`   | n    | Previous buffer                                 |
+| `<leader>1-9` | n    | Go to buffer 1-9                                |
+| `<leader>bv`  | n, v | Split vertically                                |
+| `<leader>bh`  | n, v | Split horizontally                              |
+| `<leader>g`   | n    | Launch LazyGit                                  |
+| `<leader>gp`  | n    | List pull requests (Octo)                       |
+| `<leader>;`   | n    | Select Winbar symbol (Breadcrumbs navigation)   |
+| `<leader>o`   | n    | Launch Oil (floating)                           |
+| `q`           | n    | Exit Oil (in an oil buffer)                     |
+| `<C-s>`       | n    | Save changes (in an oil buffer)                 |
 | `-`           | n    | Move to the parent directory (in an oil buffer) |
 
 </details>
@@ -525,16 +527,16 @@ nvim
 <details>
 <summary>Completion / Misc</summary>
 
-| Key          | Mode | Action                                         |
-| ------------ | ---- | ---------------------------------------------- |
-| `<Tab>`      | i    | Next candidate when PUM is visible             |
-| `<S-Tab>`    | i    | Previous candidate when PUM is visible         |
-| `<leader>m,` | n    | Emmet prefix for previously entered text       |
-| `<leader>w`  | n    | Surround word with next typed paired character |
-| `<leader>W`  | n    | Surround line with next typed paired character |
-| `<leader>dq` | n    | Delete quotes                                  |
-| `<leader>cq` | n    | Change quotes to next typed character          |
-| `<leader>rr` | n    | Reload Neovim configuration                    |
+| Key          | Mode | Action                                               |
+| ------------ | ---- | ---------------------------------------------------- |
+| `<Tab>`      | i    | Next candidate when PUM is visible / Indent list     |
+| `<S-Tab>`    | i    | Previous candidate when PUM is visible / Dedent list |
+| `<leader>m,` | n    | Emmet prefix for previously entered text             |
+| `<leader>w`  | n    | Surround word with next typed paired character       |
+| `<leader>W`  | n    | Surround line with next typed paired character       |
+| `<leader>dq` | n    | Delete quotes                                        |
+| `<leader>cq` | n    | Change quotes to next typed character                |
+| `<leader>rr` | n    | Reload Neovim configuration                          |
 
 </details>
 
