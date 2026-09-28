@@ -5,12 +5,13 @@ return {
 		"text",
 		"tex",
 		"plaintex",
+		"octo",
 	},
 	config = function()
 		local autolist = require("autolist")
 		autolist.setup()
 
-		local target_fts = { markdown = true, text = true, tex = true, plaintex = true }
+		local target_fts = { markdown = true, text = true, tex = true, plaintex = true, octo = true }
 
 		local function is_empty_marker(line)
 			return line:match("^%s*[%-%*%+]%s*$") ~= nil or line:match("^%s*%d+%.%s*$") ~= nil
@@ -51,7 +52,7 @@ return {
 		setup_buffer()
 
 		vim.api.nvim_create_autocmd("FileType", {
-			pattern = { "markdown", "text", "tex", "plaintex" },
+			pattern = { "markdown", "text", "tex", "plaintex", "octo" },
 			callback = setup_buffer,
 		})
 
