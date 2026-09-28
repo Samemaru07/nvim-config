@@ -281,11 +281,9 @@ map("n", "<leader>g", function()
 			cmd = "lazygit",
 			hidden = true,
 			direction = "float",
+			close_on_exit = true,
 			on_open = function(term)
 				vim.cmd("startinsert!")
-				map("t", "q", function()
-					term:close()
-				end, { buffer = term.bufnr, noremap = true, silent = true })
 			end,
 		})
 	end
