@@ -19,6 +19,8 @@ return {
 			"bashls",
 			"emmet_ls",
 			"tailwindcss",
+			"intelephense",
+			"sqlls",
 		},
 	},
 }

@@ -11,6 +11,8 @@ return {
 			"shellcheck", -- nvim-lint: sh
 			"clang-format", -- confogrm.nvim: c
 			"cpplint", -- nvim-lint: c
+			"pint", -- conform.nvim: php
+			"pgformatter", -- conform.nvim: sql (バイナリ名はpg_format)
 		},
 	},
 }
