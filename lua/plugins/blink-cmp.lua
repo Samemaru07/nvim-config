@@ -1,7 +1,7 @@
 return {
 	"saghen/blink.cmp",
 	version = "1.*",
-	dependencies = { "rafamadriz/friendly-snippets", "moyiz/blink-emoji.nvim" },
+	dependencies = { "rafamadriz/friendly-snippets", "moyiz/blink-emoji.nvim", "L3MON4D3/LuaSnip" },
 	event = "InsertEnter",
 	opts = {
 		enabled = function()
@@ -35,6 +35,7 @@ return {
 			},
 		},
 		fuzzy = { implementation = "prefer_rust_with_warning" },
+		snippets = { preset = "luasnip" },
 	},
 	opts_extend = { "sources.default" },
 }
