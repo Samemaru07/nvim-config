@@ -17,6 +17,8 @@ return {
 			"tsx",
 			"javascript",
 			"bash",
+			"php",
+			"sql",
 		}
 
 		local filetypes = {
@@ -32,6 +34,8 @@ return {
 			"javascript",
 			"javascriptreact",
 			"sh",
+			"php",
+			"sql",
 		}
 
 		require("nvim-treesitter").install(parsers)
