@@ -21,6 +21,8 @@ return {
 			markdown = { "prettier" },
 			sh = { "shfmt" },
 			tex = { "latexindent" },
+			php = { "pint" },
+			sql = { "pg_format" },
 		},
 		format_on_save = {
 			timeout_ms = 500,
@@ -32,6 +34,9 @@ return {
 			},
 			latexindent = {
 				prepend_args = { "-g", "/dev/null" },
+			},
+			pint = {
+				args = { "--config", vim.fn.expand("~/.config/nvim/pint.json"), "$FILENAME" },
 			},
 		},
 	},
