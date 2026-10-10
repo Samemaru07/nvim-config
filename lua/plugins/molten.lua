@@ -5,7 +5,7 @@ return {
 	build = ":UpdateRemotePlugins",
 	dependencies = { "3rd/image.nvim" },
 	init = function()
-		vim.g.python3_host_prog = vim.fn.expand("~/anaconda3/envs/py313/bin/python")
+		vim.g.python3_host_prog = vim.fn.stdpath("data") .. "/venv/bin/python"
 
 		vim.g.molten_image_provider = "none"
 		vim.g.molten_auto_image_popup = true
