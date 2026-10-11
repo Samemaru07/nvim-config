@@ -47,3 +47,6 @@ end
 vim.opt.foldlevelstart = 99
 
 vim.opt.autoread = true
+
+-- プラグイン初回取得時の build でも venv の Python を使えるよう、プラグイン定義の外で指定
+vim.g.python3_host_prog = vim.fn.stdpath("data") .. "/venv/bin/python"
