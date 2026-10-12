@@ -43,6 +43,13 @@ local function notify_random(list, level, fmt_arg)
 	vim.notify(msg, level, { title = selected.title })
 end
 
+-- 削除後に番号付きリストの番号を詰めるため、Markdownのときだけ再計算する
+local function recalc_markdown_list()
+	if vim.bo.filetype == "markdown" then
+		pcall(vim.cmd, "AutolistRecalculate")
+	end
+end
+
 local function format_and_save()
 	local bufnr = vim.api.nvim_get_current_buf()
 	local conform = require("conform")
@@ -112,16 +119,20 @@ map("n", "p", function()
 	vim.cmd('noautocmd silent! normal! "' .. reg .. count .. "p")
 	vim.o.shortmess = old_shortmess
 
-	notify_random(messages.yank, vim.log.levels.INFO, lines_str(vim.fn.getreg("+")))
+	notify_random(messages.paste, vim.log.levels.INFO, lines_str(text))
 end, opts)
 
-map({ "n", "v" }, "<C-v>", function()
+-- ビジュアルモードのPは、置換されたテキストをレジスタに入れないため
+map("x", "p", function()
+	local reg = vim.v.register
+	local text = vim.fn.getreg(reg)
+
 	local old_shortmess = vim.o.shortmess
 	vim.o.shortmess = old_shortmess .. "A"
 	vim.cmd('noautocmd silent! normal! "' .. reg .. "P")
 	vim.o.shortmess = old_shortmess
 
-	notify_random(messages.paste, vim.log.levels.INFO, lines_str(vim.fn.getreg("+")))
+	notify_random(messages.paste, vim.log.levels.INFO, lines_str(text))
 end, opts)
 
 local function select_all()
@@ -149,12 +160,16 @@ map({ "n", "v" }, "<leader>cu", "yypk", opts)
 map({ "n", "v" }, "<leader>cd", "yyp", opts)
 
 map("n", "dd", function()
+	local current_line_text = vim.api.nvim_get_current_line()
 	local old_shortmess = vim.o.shortmess
 	vim.o.shortmess = old_shortmess .. "A"
-	vim.cmd('noautocmd silent! normal! "_dd')
-	vim.o.shortmess = old_shortmess
 
-	notify_random(messages.delete, vim.log.levels.WARN, "1行")
+	-- プラグインの干渉が消えたため、標準のブラックホール削除が100%機能します
+	vim.cmd('silent! normal! "_dd')
+
+	vim.o.shortmess = old_shortmess
+	recalc_markdown_list()
+	notify_random(messages.delete, vim.log.levels.WARN, lines_str(current_line_text))
 end, opts)
 
 local function cut_line()
@@ -170,12 +185,15 @@ map("n", "<leader>x", cut_line, opts)
 map("n", "xx", cut_line, opts)
 
 map("x", "d", function()
+	-- "_dはレジスタを更新しないため、削除前に選択範囲の行数を数える
+	local n = math.abs(vim.fn.line("v") - vim.fn.line(".")) + 1
 	local old_shortmess = vim.o.shortmess
 	vim.o.shortmess = old_shortmess .. "A"
 	vim.cmd('noautocmd silent! normal! "_d')
 	vim.o.shortmess = old_shortmess
 
-	notify_random(messages.delete, vim.log.levels.WARN, lines_str(vim.fn.getreg('"')))
+	recalc_markdown_list()
+	notify_random(messages.delete, vim.log.levels.WARN, n .. "行")
 end, opts)
 
 map("x", "x", function()
