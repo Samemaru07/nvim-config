@@ -85,10 +85,31 @@ end, opts)
 
 map("n", "<leader>q", "<cmd>Bdelete!<CR>", opts)
 
-map({ "n", "v" }, "<C-c>", function()
+-- yをマップするとオペレータとして機能しなくなるため、通知はTextYankPostで行う
+-- getreg("+")はWSLでwin32yankの外部プロセスを呼ぶため、イベントの内容を使う
+-- TextYankPost内はテキストロック中で、通知プラグインがウィンドウを作れない(E565)ため、vim.scheduleで後回しにする
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		if vim.v.event.operator ~= "y" then
+			return
+		end
+		local text = table.concat(vim.v.event.regcontents, "\n")
+		vim.schedule(function()
+			notify_random(messages.yank, vim.log.levels.INFO, lines_str(text))
+		end)
+	end,
+})
+
+-- ビジュアルモードのPは、置換されたテキストをレジスタに入れないため
+-- pをマップしても、カウント(3pなど)とレジスタ指定("ap)が効くよう、v:count1とv:registerを引き継ぐ
+map("n", "p", function()
+	local reg = vim.v.register
+	local count = vim.v.count1
+	local text = vim.fn.getreg(reg)
+
 	local old_shortmess = vim.o.shortmess
 	vim.o.shortmess = old_shortmess .. "A"
-	vim.cmd('noautocmd silent! normal! "+y')
+	vim.cmd('noautocmd silent! normal! "' .. reg .. count .. "p")
 	vim.o.shortmess = old_shortmess
 
 	notify_random(messages.yank, vim.log.levels.INFO, lines_str(vim.fn.getreg("+")))
@@ -97,13 +118,11 @@ end, opts)
 map({ "n", "v" }, "<C-v>", function()
 	local old_shortmess = vim.o.shortmess
 	vim.o.shortmess = old_shortmess .. "A"
-	vim.cmd('noautocmd silent! normal! "+p')
+	vim.cmd('noautocmd silent! normal! "' .. reg .. "P")
 	vim.o.shortmess = old_shortmess
 
 	notify_random(messages.paste, vim.log.levels.INFO, lines_str(vim.fn.getreg("+")))
 end, opts)
-
-map("i", "<C-v>", "<C-r>+", opts)
 
 local function select_all()
 	vim.cmd("normal! ggVG")
