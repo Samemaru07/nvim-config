@@ -43,8 +43,6 @@ return {
 			vim.keymap.set("n", "<leader>r", "<cmd>AutolistRecalculate<cr>")
 			vim.keymap.set({ "n", "v" }, ">>", ">><cmd>AutolistRecalculate<cr>", opts)
 			vim.keymap.set({ "n", "v" }, "<<", "<<<cmd>AutolistRecalculate<cr>", opts)
-			vim.keymap.set("n", "dd", "dd<cmd>AutolistRecalculate<cr>", opts)
-			vim.keymap.set("v", "d", "d<cmd>AutolistRecalculate<cr>", opts)
 		end
 
 		-- ft指定でのプラグイン読み込み時点で、現在のバッファは既にFileTypeイベントが

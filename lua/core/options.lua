@@ -29,6 +29,14 @@ vim.opt.backup = false
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath("state") .. "/undo"
 
+-- クリップボード
+-- 同期するスイッチ
+vim.opt.clipboard = "unnamedplus"
+
+-- インサートモードで自作ターミナルの貼り付け（超高速タイピング）が始まったら、
+-- 自動でペーストモードに切り替えてインデント崩れを防ぐ設定（Neovim標準の仕組みを利用）
+vim.opt.paste = false -- 普段はオフ
+
 if vim.fn.has("wsl") == 1 then
 	vim.g.clipboard = {
 		name = "win32yank",
@@ -50,3 +58,6 @@ vim.opt.autoread = true
 
 -- プラグイン初回取得時の build でも venv の Python を使えるよう、プラグイン定義の外で指定
 vim.g.python3_host_prog = vim.fn.stdpath("data") .. "/venv/bin/python"
+
+-- 「n行がヤンクされました」のメッセージを出さないよう、閾値を無限大に
+vim.opt.report = 9999

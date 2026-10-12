@@ -375,35 +375,37 @@ nvim
 - `<C>: Ctrl`, `<A>: Alt`, `<S>: Shift`.
 - Mode abbreviations: `n` = Normal, `i` = Insert, `v` = Visual, `c` = Command, `t` = Terminal, `s` = Select, `o` = Operator-pending [^footnote]
     [^footnote]: `s` (Select) and `o` (Operator-pending) are mainly used internally by plugins. You generally don't need to be aware of them during normal operation.
-- In this configuration, copy = yank, meaning whatever is sent to the register is sent to the system clipboard.
+- In this configuration, the register (`"`) is shared with the system clipboard. Copying with `y` and pasting with `p` are reflected directly in the clipboard.
 
 <details>
 <summary>Basic Editing</summary>
 
-| Key                      | Mode          | Action                            |
-| ------------------------ | ------------- | --------------------------------- |
-| `<leader>h/j/k/l`        | n             | Move window (Left/Down/Up/Right)  |
-| `<C-g>`                  | i, v, c, s, o | Esc key                           |
-| `<C-g>`                  | t             | Switch to terminal normal mode    |
-| `<C-Right/Left>`         | t             | Move word (Right/Left)            |
-| `<C-s>`                  | n, i, v       | Format & Save                     |
-| `<leader>sq`             | n, v          | Format & Save & Delete buffer     |
-| `<leader>q`              | n             | Delete buffer (Without saving)    |
-| `<C-c>`                  | n, v          | Copy                              |
-| `<C-v>`                  | n, i, v       | Paste                             |
-| `<C-a>`                  | n, v          | Select all                        |
-| `<C-h>`                  | i, n          | Delete word (Backward)            |
-| `<C-l>`                  | i, n          | Delete word (Forward)             |
-| `<A-Up/Down/Left/Right>` | n, i, v, t    | Resize window                     |
-| `<leader><Up/Down>`      | n, v          | Move line                         |
-| `<leader>cu/cd`          | n, v          | Duplicate line (Up/Down)          |
-| `dd`                     | n             | Delete line (Black hole register) |
-| `xx`                     | n             | Cut line                          |
-| `d` / `x`                | v             | Delete / Cut                      |
-| `+/-`                    | n             | Increment/Decrement number        |
-| `<leader>r`              | n             | Recalculate list numbers          |
-| `<S-e>`                  | n, v          | Jump to matching pair             |
-| `<C-\>`                  | i, n, t       | Toggle terminal                   |
+| Key                      | Mode          | Action                              |
+| ------------------------ | ------------- | ----------------------------------- |
+| `<leader>h/j/k/l`        | n             | Move window (Left/Down/Up/Right)    |
+| `<C-g>`                  | i, v, c, s, o | Esc key                             |
+| `<C-g>`                  | t             | Switch to terminal normal mode      |
+| `<C-Right/Left>`         | t             | Move word (Right/Left)              |
+| `<C-s>`                  | n, i, v       | Format & Save                       |
+| `<leader>sq`             | n, v          | Format & Save & Delete buffer       |
+| `<leader>q`              | n             | Delete buffer (Without saving)      |
+| `<C-a>`                  | n, v          | Select all                          |
+| `<C-h>`                  | i, n          | Delete word (Backward)              |
+| `<C-l>`                  | i, n          | Delete word (Forward)               |
+| `<A-Up/Down/Left/Right>` | n, i, v, t    | Resize window                       |
+| `<leader><Up/Down>`      | n, v          | Move line                           |
+| `<leader>cu/cd`          | n, v          | Duplicate line (Up/Down)            |
+| `dd`                     | n             | Delete line (Black hole register)   |
+| `xx`                     | n             | Cut line                            |
+| `d` / `x`                | v             | Delete / Cut                        |
+| `c`                      | n, v          | Change (Black hole register)        |
+| `C` / `s` / `S` / `D`    | n             | Change/Delete (Black hole register) |
+| `p`                      | v             | Paste (without overwriting register) |
+| `d` / `x`                | v             | Delete / Cut                        |
+| `+/-`                    | n             | Increment/Decrement number          |
+| `<leader>r`              | n             | Recalculate list numbers            |
+| `<S-e>`                  | n, v          | Jump to matching pair               |
+| `<C-\>`                  | i, n, t       | Toggle terminal                     |
 
 </details>
 

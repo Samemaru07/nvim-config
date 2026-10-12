@@ -43,6 +43,13 @@ local function notify_random(list, level, fmt_arg)
 	vim.notify(msg, level, { title = selected.title })
 end
 
+-- 削除後に番号付きリストの番号を詰めるため、Markdownのときだけ再計算する
+local function recalc_markdown_list()
+	if vim.bo.filetype == "markdown" then
+		pcall(vim.cmd, "AutolistRecalculate")
+	end
+end
+
 local function format_and_save()
 	local bufnr = vim.api.nvim_get_current_buf()
 	local conform = require("conform")
@@ -85,25 +92,48 @@ end, opts)
 
 map("n", "<leader>q", "<cmd>Bdelete!<CR>", opts)
 
-map({ "n", "v" }, "<C-c>", function()
+-- yをマップするとオペレータとして機能しなくなるため、通知はTextYankPostで行う
+-- getreg("+")はWSLでwin32yankの外部プロセスを呼ぶため、イベントの内容を使う
+-- TextYankPost内はテキストロック中で、通知プラグインがウィンドウを作れない(E565)ため、vim.scheduleで後回しにする
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		if vim.v.event.operator ~= "y" then
+			return
+		end
+		local text = table.concat(vim.v.event.regcontents, "\n")
+		vim.schedule(function()
+			notify_random(messages.yank, vim.log.levels.INFO, lines_str(text))
+		end)
+	end,
+})
+
+-- ビジュアルモードのPは、置換されたテキストをレジスタに入れないため
+-- pをマップしても、カウント(3pなど)とレジスタ指定("ap)が効くよう、v:count1とv:registerを引き継ぐ
+map("n", "p", function()
+	local reg = vim.v.register
+	local count = vim.v.count1
+	local text = vim.fn.getreg(reg)
+
 	local old_shortmess = vim.o.shortmess
 	vim.o.shortmess = old_shortmess .. "A"
-	vim.cmd('noautocmd silent! normal! "+y')
+	vim.cmd('noautocmd silent! normal! "' .. reg .. count .. "p")
 	vim.o.shortmess = old_shortmess
 
-	notify_random(messages.yank, vim.log.levels.INFO, lines_str(vim.fn.getreg("+")))
+	notify_random(messages.paste, vim.log.levels.INFO, lines_str(text))
 end, opts)
 
-map({ "n", "v" }, "<C-v>", function()
+-- ビジュアルモードのPは、置換されたテキストをレジスタに入れないため
+map("x", "p", function()
+	local reg = vim.v.register
+	local text = vim.fn.getreg(reg)
+
 	local old_shortmess = vim.o.shortmess
 	vim.o.shortmess = old_shortmess .. "A"
-	vim.cmd('noautocmd silent! normal! "+p')
+	vim.cmd('noautocmd silent! normal! "' .. reg .. "P")
 	vim.o.shortmess = old_shortmess
 
-	notify_random(messages.paste, vim.log.levels.INFO, lines_str(vim.fn.getreg("+")))
+	notify_random(messages.paste, vim.log.levels.INFO, lines_str(text))
 end, opts)
-
-map("i", "<C-v>", "<C-r>+", opts)
 
 local function select_all()
 	vim.cmd("normal! ggVG")
@@ -130,12 +160,16 @@ map({ "n", "v" }, "<leader>cu", "yypk", opts)
 map({ "n", "v" }, "<leader>cd", "yyp", opts)
 
 map("n", "dd", function()
+	local current_line_text = vim.api.nvim_get_current_line()
 	local old_shortmess = vim.o.shortmess
 	vim.o.shortmess = old_shortmess .. "A"
-	vim.cmd('noautocmd silent! normal! "_dd')
-	vim.o.shortmess = old_shortmess
 
-	notify_random(messages.delete, vim.log.levels.WARN, "1行")
+	-- プラグインの干渉が消えたため、標準のブラックホール削除が100%機能します
+	vim.cmd('silent! normal! "_dd')
+
+	vim.o.shortmess = old_shortmess
+	recalc_markdown_list()
+	notify_random(messages.delete, vim.log.levels.WARN, lines_str(current_line_text))
 end, opts)
 
 local function cut_line()
@@ -151,12 +185,15 @@ map("n", "<leader>x", cut_line, opts)
 map("n", "xx", cut_line, opts)
 
 map("x", "d", function()
+	-- "_dはレジスタを更新しないため、削除前に選択範囲の行数を数える
+	local n = math.abs(vim.fn.line("v") - vim.fn.line(".")) + 1
 	local old_shortmess = vim.o.shortmess
 	vim.o.shortmess = old_shortmess .. "A"
 	vim.cmd('noautocmd silent! normal! "_d')
 	vim.o.shortmess = old_shortmess
 
-	notify_random(messages.delete, vim.log.levels.WARN, lines_str(vim.fn.getreg('"')))
+	recalc_markdown_list()
+	notify_random(messages.delete, vim.log.levels.WARN, n .. "行")
 end, opts)
 
 map("x", "x", function()
@@ -289,3 +326,10 @@ map("n", "<leader>g", function()
 	end
 	lazygit:toggle()
 end, opts)
+
+-- change・substitute・行末削除をブラックホール行きにし、クリップボードを汚さない
+map({ "n", "x" }, "c", '"_c', opts)
+map("n", "C", '"_C', opts)
+map("n", "s", '"_s', opts)
+map("n", "S", '"_S', opts)
+map("n", "D", '"_D', opts)
