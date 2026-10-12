@@ -308,3 +308,10 @@ map("n", "<leader>g", function()
 	end
 	lazygit:toggle()
 end, opts)
+
+-- change・substitute・行末削除をブラックホール行きにし、クリップボードを汚さない
+map({ "n", "x" }, "c", '"_c', opts)
+map("n", "C", '"_C', opts)
+map("n", "s", '"_s', opts)
+map("n", "S", '"_S', opts)
+map("n", "D", '"_D', opts)
