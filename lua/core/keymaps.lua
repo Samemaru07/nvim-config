@@ -43,13 +43,6 @@ local function notify_random(list, level, fmt_arg)
 	vim.notify(msg, level, { title = selected.title })
 end
 
--- 削除後に番号付きリストの番号を詰めるため、Markdownのときだけ再計算する
-local function recalc_markdown_list()
-	if vim.bo.filetype == "markdown" then
-		pcall(vim.cmd, "AutolistRecalculate")
-	end
-end
-
 local function format_and_save()
 	local bufnr = vim.api.nvim_get_current_buf()
 	local conform = require("conform")
@@ -168,7 +161,6 @@ map("n", "dd", function()
 	vim.cmd('silent! normal! "_dd')
 
 	vim.o.shortmess = old_shortmess
-	recalc_markdown_list()
 	notify_random(messages.delete, vim.log.levels.WARN, lines_str(current_line_text))
 end, opts)
 
@@ -192,7 +184,6 @@ map("x", "d", function()
 	vim.cmd('noautocmd silent! normal! "_d')
 	vim.o.shortmess = old_shortmess
 
-	recalc_markdown_list()
 	notify_random(messages.delete, vim.log.levels.WARN, n .. "行")
 end, opts)
 

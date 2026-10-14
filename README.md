@@ -270,16 +270,15 @@ nvim
 <details>
 <summary>エディタ</summary>
 
-| プラグイン名                                                                                  | 説明                   |
-| --------------------------------------------------------------------------------------------- | ---------------------- |
-| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                         | シンタックス解析       |
-| [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) | TextObject拡張         |
-| [nvim-autopairs](https://github.com/windwp/nvim-autopairs)                                    | 括弧自動補完           |
-| [Comment.nvim](https://github.com/numToStr/Comment.nvim)                                      | コメントトグル         |
-| [nvim-surround](https://github.com/kylechui/nvim-surround)                                    | 囲み文字操作           |
-| [flash.nvim](https://github.com/folke/flash.nvim)                                             | 高速移動               |
-| [emmet-vim](https://github.com/mattn/emmet-vim)                                               | HTML/CSS展開           |
-| [autolist.nvim](https://github.com/gaoDean/autolist.nvim)                                     | リスト自動継続・再計算 |
+| プラグイン名                                                                                  | 説明             |
+| --------------------------------------------------------------------------------------------- | ---------------- |
+| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                         | シンタックス解析 |
+| [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) | TextObject拡張   |
+| [nvim-autopairs](https://github.com/windwp/nvim-autopairs)                                    | 括弧自動補完     |
+| [Comment.nvim](https://github.com/numToStr/Comment.nvim)                                      | コメントトグル   |
+| [nvim-surround](https://github.com/kylechui/nvim-surround)                                    | 囲み文字操作     |
+| [flash.nvim](https://github.com/folke/flash.nvim)                                             | 高速移動         |
+| [emmet-vim](https://github.com/mattn/emmet-vim)                                               | HTML/CSS展開     |
 
 </details>
 
@@ -405,7 +404,6 @@ nvim
 | `p`                      | v             | 貼り付け（レジスタを上書きしない）   |
 | `d` / `x`                | v             | 削除 / カット                        |
 | `+/-`                    | n             | 数値インクリメント/デクリメント      |
-| `<leader>r`              | n             | リスト番号の再計算                   |
 | `<S-e>`                  | n, v          | 対応する括弧へジャンプ               |
 | `<C-\>`                  | i, n, t       | ターミナルをトグル                   |
 
