@@ -79,7 +79,9 @@ return {
 			pattern = "alpha",
 			callback = function(ev)
 				vim.keymap.set("n", "f", "<cmd>Telescope find_files<cr>", { buffer = ev.buf, silent = true })
-				vim.keymap.set("n", "e", "<cmd>Oil<cr>", { buffer = ev.buf, silent = true })
+				vim.keymap.set("n", "e", function()
+					require("oil").open_float(nil, { preview = {} })
+				end, { buffer = ev.buf, silent = true })
 				vim.keymap.set("n", "q", "<cmd>qa<cr>", { buffer = ev.buf, silent = true })
 			end,
 		})
