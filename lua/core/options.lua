@@ -4,6 +4,13 @@ vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
+vim.opt.foldcolumn = "1"
+vim.opt.fillchars = {
+	foldopen = "v",
+	foldclose = ">",
+	foldsep = " ",
+	foldinner = " ",
+}
 vim.opt.scrolloff = 3
 vim.opt.wrap = false
 
