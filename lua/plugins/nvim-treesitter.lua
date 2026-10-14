@@ -46,7 +46,10 @@ return {
 				vim.treesitter.start()
 				vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 				vim.wo.foldmethod = "expr"
-				vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				-- TeXのインデントはvimtexが担当しているため、treesitterのindentexprで上書きしない
+				if vim.bo.filetype ~= "tex" then
+					vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				end
 			end,
 		})
 	end,
