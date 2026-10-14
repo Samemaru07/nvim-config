@@ -268,16 +268,15 @@ nvim
 <details>
 <summary>Editor</summary>
 
-| Plugin                                                                                        | Description            |
-| --------------------------------------------------------------------------------------------- | ---------------------- |
-| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                         | Syntax parsing         |
-| [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) | TextObject extension   |
-| [nvim-autopairs](https://github.com/windwp/nvim-autopairs)                                    | Auto-close pairs       |
-| [Comment.nvim](https://github.com/numToStr/Comment.nvim)                                      | Comment toggle         |
-| [nvim-surround](https://github.com/kylechui/nvim-surround)                                    | Surround operations    |
-| [flash.nvim](https://github.com/folke/flash.nvim)                                             | Fast navigation        |
-| [emmet-vim](https://github.com/mattn/emmet-vim)                                               | HTML/CSS expansion     |
-| [autolist.nvim](https://github.com/gaoDean/autolist.nvim)                                     | リスト自動継続・再計算 |
+| Plugin                                                                                        | Description          |
+| --------------------------------------------------------------------------------------------- | -------------------- |
+| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                         | Syntax parsing       |
+| [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) | TextObject extension |
+| [nvim-autopairs](https://github.com/windwp/nvim-autopairs)                                    | Auto-close pairs     |
+| [Comment.nvim](https://github.com/numToStr/Comment.nvim)                                      | Comment toggle       |
+| [nvim-surround](https://github.com/kylechui/nvim-surround)                                    | Surround operations  |
+| [flash.nvim](https://github.com/folke/flash.nvim)                                             | Fast navigation      |
+| [emmet-vim](https://github.com/mattn/emmet-vim)                                               | HTML/CSS expansion   |
 
 </details>
 
@@ -380,32 +379,31 @@ nvim
 <details>
 <summary>Basic Editing</summary>
 
-| Key                      | Mode          | Action                              |
-| ------------------------ | ------------- | ----------------------------------- |
-| `<leader>h/j/k/l`        | n             | Move window (Left/Down/Up/Right)    |
-| `<C-g>`                  | i, v, c, s, o | Esc key                             |
-| `<C-g>`                  | t             | Switch to terminal normal mode      |
-| `<C-Right/Left>`         | t             | Move word (Right/Left)              |
-| `<C-s>`                  | n, i, v       | Format & Save                       |
-| `<leader>sq`             | n, v          | Format & Save & Delete buffer       |
-| `<leader>q`              | n             | Delete buffer (Without saving)      |
-| `<C-a>`                  | n, v          | Select all                          |
-| `<C-h>`                  | i, n          | Delete word (Backward)              |
-| `<C-l>`                  | i, n          | Delete word (Forward)               |
-| `<A-Up/Down/Left/Right>` | n, i, v, t    | Resize window                       |
-| `<leader><Up/Down>`      | n, v          | Move line                           |
-| `<leader>cu/cd`          | n, v          | Duplicate line (Up/Down)            |
-| `dd`                     | n             | Delete line (Black hole register)   |
-| `xx`                     | n             | Cut line                            |
-| `d` / `x`                | v             | Delete / Cut                        |
-| `c`                      | n, v          | Change (Black hole register)        |
-| `C` / `s` / `S` / `D`    | n             | Change/Delete (Black hole register) |
+| Key                      | Mode          | Action                               |
+| ------------------------ | ------------- | ------------------------------------ |
+| `<leader>h/j/k/l`        | n             | Move window (Left/Down/Up/Right)     |
+| `<C-g>`                  | i, v, c, s, o | Esc key                              |
+| `<C-g>`                  | t             | Switch to terminal normal mode       |
+| `<C-Right/Left>`         | t             | Move word (Right/Left)               |
+| `<C-s>`                  | n, i, v       | Format & Save                        |
+| `<leader>sq`             | n, v          | Format & Save & Delete buffer        |
+| `<leader>q`              | n             | Delete buffer (Without saving)       |
+| `<C-a>`                  | n, v          | Select all                           |
+| `<C-h>`                  | i, n          | Delete word (Backward)               |
+| `<C-l>`                  | i, n          | Delete word (Forward)                |
+| `<A-Up/Down/Left/Right>` | n, i, v, t    | Resize window                        |
+| `<leader><Up/Down>`      | n, v          | Move line                            |
+| `<leader>cu/cd`          | n, v          | Duplicate line (Up/Down)             |
+| `dd`                     | n             | Delete line (Black hole register)    |
+| `xx`                     | n             | Cut line                             |
+| `d` / `x`                | v             | Delete / Cut                         |
+| `c`                      | n, v          | Change (Black hole register)         |
+| `C` / `s` / `S` / `D`    | n             | Change/Delete (Black hole register)  |
 | `p`                      | v             | Paste (without overwriting register) |
-| `d` / `x`                | v             | Delete / Cut                        |
-| `+/-`                    | n             | Increment/Decrement number          |
-| `<leader>r`              | n             | Recalculate list numbers            |
-| `<S-e>`                  | n, v          | Jump to matching pair               |
-| `<C-\>`                  | i, n, t       | Toggle terminal                     |
+| `d` / `x`                | v             | Delete / Cut                         |
+| `+/-`                    | n             | Increment/Decrement number           |
+| `<S-e>`                  | n, v          | Jump to matching pair                |
+| `<C-\>`                  | i, n, t       | Toggle terminal                      |
 
 </details>
 
