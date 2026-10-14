@@ -203,8 +203,6 @@ map("n", "<leader>fc", function()
 	require("spectre").open()
 end, opts)
 
-map("n", "<leader>e", "<cmd>Neotree toggle<CR>", opts)
-
 for i = 1, 9 do
 	map("n", "<leader>" .. i, function()
 		require("bufferline").go_to(i, true)
