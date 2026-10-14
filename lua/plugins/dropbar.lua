@@ -1,6 +1,7 @@
 -- 画面上部にカレントバッファのパス階層をパンくず表示する
 return {
 	"Bekaboo/dropbar.nvim",
+	event = "VeryLazy",
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 		"nvim-telescope/telescope-fzf-native.nvim",
