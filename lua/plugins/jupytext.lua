@@ -1,6 +1,6 @@
 return {
 	"GCBallesteros/jupytext.nvim",
-	lazy = false,
+	ft = "python",
 	opts = {
 		style = "hydrogen",
 		output_extension = "auto",

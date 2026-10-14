@@ -1,5 +1,6 @@
 return {
 	"WhoIsSethDaniel/mason-tool-installer.nvim",
+	event = "VeryLazy",
 	dependencies = { "williamboman/mason.nvim" },
 	opts = {
 		-- LSPサーバ以外のフォーマッタ・リンタのMason経由での自動インストール

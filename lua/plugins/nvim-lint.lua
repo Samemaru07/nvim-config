@@ -1,7 +1,7 @@
 return {
 	"mfussenegger/nvim-lint",
 	-- リリースタグが存在しないプラグインのためのmain追従
-	event = { "BufWritePost", "BufReadPost", "InsertLeave" },
+	event = "BufWritePost",
 	config = function()
 		local lint = require("lint")
 
@@ -11,7 +11,7 @@ return {
 		}
 
 		local lint_augroup = vim.api.nvim_create_augroup("Lint", { clear = true })
-		vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {
+		vim.api.nvim_create_autocmd("BufWritePost", {
 			group = lint_augroup,
 			callback = function()
 				lint.try_lint()

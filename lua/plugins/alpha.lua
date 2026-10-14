@@ -42,7 +42,7 @@ return {
 		dashboard.section.header.val = vim.split(header_art, "\n")
 
 		dashboard.section.buttons.type = "text"
-		dashboard.section.buttons.val = "📄 [f] Find File    🔍 [e] File Explorer    ❌ [q] Quit"
+		dashboard.section.buttons.val = "📄 [f] Find File    ❌ [q] Quit"
 		dashboard.section.buttons.opts = {
 			position = "center",
 			hl = "Keyword",
@@ -79,7 +79,6 @@ return {
 			pattern = "alpha",
 			callback = function(ev)
 				vim.keymap.set("n", "f", "<cmd>Telescope find_files<cr>", { buffer = ev.buf, silent = true })
-				vim.keymap.set("n", "e", "<cmd>Neotree toggle<cr>", { buffer = ev.buf, silent = true })
 				vim.keymap.set("n", "q", "<cmd>qa<cr>", { buffer = ev.buf, silent = true })
 			end,
 		})

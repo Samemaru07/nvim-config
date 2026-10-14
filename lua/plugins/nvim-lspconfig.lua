@@ -1,5 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
+	event = { "BufReadPre", "BufNewFile" },
 	dependencies = { "saghen/blink.cmp" },
 	config = function()
 		local capabilities = require("blink.cmp").get_lsp_capabilities()
@@ -11,7 +12,7 @@ return {
 
 		vim.diagnostic.config({
 			virtual_text = true,
-			virtual_lines = { current_line = true },
+			virtual_lines = false,
 		})
 	end,
 
