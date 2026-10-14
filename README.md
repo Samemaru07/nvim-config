@@ -217,7 +217,6 @@ nvim
 | プラグイン名                                                        | 説明                     |
 | ------------------------------------------------------------------- | ------------------------ |
 | [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) | アイコン表示             |
-| [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim)     | ファイルエクスプローラ   |
 | [bufferline.nvim](https://github.com/akinsho/bufferline.nvim)       | バッファライン表示       |
 | [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)        | ステータスライン         |
 | [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim)       | ターミナルトグル         |
@@ -230,7 +229,6 @@ nvim
 | [nvim-notify](https://github.com/rcarriga/nvim-notify)              | 通知システム             |
 | [which-key.nvim](https://github.com/folke/which-key.nvim)           | キーバインド表示         |
 | [todo-comments.nvim](https://github.com/folke/todo-comments.nvim)   | TODOコメント強調         |
-| [dropbar.nvim](https://github.com/Bekaboo/dropbar.nvim)             | ウィンバーナビゲーション |
 
 </details>
 
@@ -272,13 +270,13 @@ nvim
 
 | プラグイン名                                                                                  | 説明             |
 | --------------------------------------------------------------------------------------------- | ---------------- |
-| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                         | シンタックス解析 |
-| [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) | TextObject拡張   |
+| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                         | シンタックス解析・折り畳み |
 | [nvim-autopairs](https://github.com/windwp/nvim-autopairs)                                    | 括弧自動補完     |
 | [Comment.nvim](https://github.com/numToStr/Comment.nvim)                                      | コメントトグル   |
 | [nvim-surround](https://github.com/kylechui/nvim-surround)                                    | 囲み文字操作     |
-| [flash.nvim](https://github.com/folke/flash.nvim)                                             | 高速移動         |
+| [vim-matchup](https://github.com/andymass/vim-matchup)                                        | 対応する括弧の強調 |
 | [emmet-vim](https://github.com/mattn/emmet-vim)                                               | HTML/CSS展開     |
+| [nvim-ts-autotag](https://github.com/windwp/nvim-ts-autotag)                                  | HTMLタグ自動補完 |
 
 </details>
 
@@ -427,7 +425,6 @@ nvim
 
 | キー          | モード | 動作                                          |
 | ------------- | ------ | --------------------------------------------- |
-| `<leader>e`   | n      | ファイルツリー表示/非表示                     |
 | `<leader>ff`  | n      | ファイル検索                                  |
 | `<leader>fg`  | n      | 全ファイル検索（grep）                        |
 | `<leader>fb`  | n      | バッファ一覧                                  |
@@ -442,11 +439,18 @@ nvim
 | `<leader>bh`  | n, v   | 水平分割                                      |
 | `<leader>g`   | n      | LazyGit起動                                   |
 | `<leader>gp`  | n      | PR一覧表示 (Octo)                             |
-| `<leader>;`   | n      | Winbarのシンボル選択 (パンくずナビゲーション) |
 | `<leader>o`   | n      | Oil起動 (フローティング)                      |
 | `q`           | n      | Oil終了 (oilバッファ内)                       |
 | `<C-s>`       | n      | 変更保存 (oilバッファ内)                      |
 | `-`           | n      | 親ディレクトリへ移動 (oilバッファ内)          |
+
+Alphaダッシュボードでは、次のバッファローカルキーマップを使用できます。
+
+| キー | モード | 動作                       |
+| ---- | ------ | -------------------------- |
+| `f`  | n      | Telescopeでファイルを検索  |
+| `e`  | n      | Oilをフローティングで起動  |
+| `q`  | n      | Neovimを終了               |
 
 </details>
 
@@ -458,6 +462,7 @@ nvim
 | `K`          | n      | ホバー表示       |
 | `gd`         | n      | 定義へジャンプ   |
 | `gr`         | n      | 参照一覧表示     |
+| `<leader>;`  | n      | ドキュメントシンボル一覧表示 |
 | `<leader>rn` | n      | リネーム         |
 | `<leader>ca` | n      | コードアクション |
 | `[d`         | n      | 前の診断へ移動   |
@@ -479,7 +484,7 @@ nvim
 </details>
 
 <details>
-<summary>日本語入力 / テキストオブジェクト</summary>
+<summary>日本語入力</summary>
 
 | キー    | モード  | 動作             |
 | ------- | ------- | ---------------- |
@@ -487,10 +492,6 @@ nvim
 | `<C-g>` | SKK     | SKK終了          |
 | `q`     | SKK     | カタカナ変換     |
 | `Q`     | SKK     | 半角カタカナ変換 |
-| `af/if` | x, o    | 関数を選択       |
-| `ac/ic` | x, o    | クラスを選択     |
-| `aa/ia` | x, o    | 引数を選択       |
-| `]f/[f` | n, x, o | 関数移動         |
 
 </details>
 
@@ -669,9 +670,6 @@ Neovimを起動するたびに、「ひぐらしのなく頃に」より、**園
                         return ""
                     end
                     local ft = vim.bo.filetype
-                    if ft == "neo-tree" then
-                        return ""
-                    end
                     if ft == "alpha" then
                         return ""
                     end
