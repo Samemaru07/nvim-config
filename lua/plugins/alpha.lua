@@ -42,7 +42,7 @@ return {
 		dashboard.section.header.val = vim.split(header_art, "\n")
 
 		dashboard.section.buttons.type = "text"
-		dashboard.section.buttons.val = "📄 [f] Find File    📁 [e] File Explorer    ❌ [q] Quit"
+		dashboard.section.buttons.val = "󰈔 [f] Find File    󰉋 [e] File Explorer    󰗼 [q] Quit"
 		dashboard.section.buttons.opts = {
 			position = "center",
 			hl = "Keyword",
