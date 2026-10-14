@@ -284,6 +284,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		map("n", "gd", vim.lsp.buf.definition, vim.tbl_extend("force", buf_opts, { desc = "Go to definition" }))
 		-- 参照箇所一覧表示
 		map("n", "gr", vim.lsp.buf.references, vim.tbl_extend("force", buf_opts, { desc = "Find references" }))
+		-- 現在のファイル内の関数・クラス・変数を一覧表示
+		map("n", "<leader>;", function()
+			vim.cmd("Telescope lsp_document_symbols sorting_strategy=ascending")
+		end, vim.tbl_extend("force", buf_opts, { desc = "Document Symbols" }))
 		-- カーソルの型情報・ドキュメントをポップアップ表示する
 		map("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", buf_opts, { desc = "Hover documentation" }))
 		-- カーソル位置のシンボル名をプロジェクト全体で一括リネーム
