@@ -215,7 +215,6 @@ nvim
 | Plugin                                                              | Description                     |
 | ------------------------------------------------------------------- | ------------------------------- |
 | [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) | Icon display                    |
-| [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim)     | File explorer                   |
 | [bufferline.nvim](https://github.com/akinsho/bufferline.nvim)       | Bufferline display              |
 | [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)        | Status line                     |
 | [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim)       | Terminal toggle                 |
@@ -228,7 +227,6 @@ nvim
 | [nvim-notify](https://github.com/rcarriga/nvim-notify)              | Notification system             |
 | [which-key.nvim](https://github.com/folke/which-key.nvim)           | Keybind display                 |
 | [todo-comments.nvim](https://github.com/folke/todo-comments.nvim)   | TODO comment highlight          |
-| [dropbar.nvim](https://github.com/Bekaboo/dropbar.nvim)             | Winbar navigation               |
 
 </details>
 
@@ -270,13 +268,13 @@ nvim
 
 | Plugin                                                                                        | Description          |
 | --------------------------------------------------------------------------------------------- | -------------------- |
-| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                         | Syntax parsing       |
-| [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) | TextObject extension |
+| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                         | Syntax parsing and folding |
 | [nvim-autopairs](https://github.com/windwp/nvim-autopairs)                                    | Auto-close pairs     |
 | [Comment.nvim](https://github.com/numToStr/Comment.nvim)                                      | Comment toggle       |
 | [nvim-surround](https://github.com/kylechui/nvim-surround)                                    | Surround operations  |
-| [flash.nvim](https://github.com/folke/flash.nvim)                                             | Fast navigation      |
+| [vim-matchup](https://github.com/andymass/vim-matchup)                                        | Matching pair highlighting |
 | [emmet-vim](https://github.com/mattn/emmet-vim)                                               | HTML/CSS expansion   |
+| [nvim-ts-autotag](https://github.com/windwp/nvim-ts-autotag)                                  | Automatic HTML tags  |
 
 </details>
 
@@ -408,11 +406,23 @@ nvim
 </details>
 
 <details>
+<summary>Folding</summary>
+
+| Key  | Mode | Action                         |
+| ---- | ---- | ------------------------------ |
+| `zc` | n    | Close the fold at the cursor   |
+| `zo` | n    | Open the fold at the cursor    |
+| `za` | n    | Toggle the fold at the cursor  |
+| `zM` | n    | Close all folds                |
+| `zR` | n    | Open all folds                 |
+
+</details>
+
+<details>
 <summary>Files / Search / Buffers</summary>
 
 | Key           | Mode | Action                                          |
 | ------------- | ---- | ----------------------------------------------- |
-| `<leader>e`   | n    | Toggle file tree                                |
 | `<leader>ff`  | n    | Find files                                      |
 | `<leader>fg`  | n    | Live grep across all files                      |
 | `<leader>fb`  | n    | List buffers                                    |
@@ -427,11 +437,18 @@ nvim
 | `<leader>bh`  | n, v | Split horizontally                              |
 | `<leader>g`   | n    | Launch LazyGit                                  |
 | `<leader>gp`  | n    | List pull requests (Octo)                       |
-| `<leader>;`   | n    | Select Winbar symbol (Breadcrumbs navigation)   |
 | `<leader>o`   | n    | Launch Oil (floating)                           |
 | `q`           | n    | Exit Oil (in an oil buffer)                     |
 | `<C-s>`       | n    | Save changes (in an oil buffer)                 |
 | `-`           | n    | Move to the parent directory (in an oil buffer) |
+
+In the Alpha dashboard, the following buffer-local keymaps are available.
+
+| Key | Mode | Action                    |
+| --- | ---- | ------------------------- |
+| `f` | n    | Find files with Telescope |
+| `e` | n    | Launch Oil in a float     |
+| `q` | n    | Quit Neovim               |
 
 </details>
 
@@ -443,6 +460,7 @@ nvim
 | `K`          | n    | Show hover                |
 | `gd`         | n    | Go to definition          |
 | `gr`         | n    | List references           |
+| `<leader>;`  | n    | List document symbols     |
 | `<leader>rn` | n    | Rename                    |
 | `<leader>ca` | n    | Code action               |
 | `[d`         | n    | Go to previous diagnostic |
@@ -464,7 +482,7 @@ nvim
 </details>
 
 <details>
-<summary>Japanese Input / Text Objects</summary>
+<summary>Japanese Input</summary>
 
 | Key     | Mode    | Action                         |
 | ------- | ------- | ------------------------------ |
@@ -472,10 +490,6 @@ nvim
 | `<C-g>` | SKK     | Exit SKK                       |
 | `q`     | SKK     | Convert to Katakana            |
 | `Q`     | SKK     | Convert to Half-width Katakana |
-| `af/if` | x, o    | Select function                |
-| `ac/ic` | x, o    | Select class                   |
-| `aa/ia` | x, o    | Select argument                |
-| `]f/[f` | n, x, o | Move between functions         |
 
 </details>
 
@@ -652,9 +666,6 @@ Depending on the file's save state, a message paying homage to famous Gundam quo
                         return ""
                     end
                     local ft = vim.bo.filetype
-                    if ft == "neo-tree" then
-                        return ""
-                    end
                     if ft == "alpha" then
                         return ""
                     end
