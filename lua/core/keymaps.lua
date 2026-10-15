@@ -2,8 +2,7 @@ local map = vim.keymap.set
 local opts = { silent = true }
 local messages = require("data.messages")
 
-vim.opt.signcolumn = "yes"
-
+-- ウィンドウ・ターミナル操作
 map("n", "<leader>h", "<C-w>h", opts)
 map("n", "<leader>j", "<C-w>j", opts)
 map("n", "<leader>k", "<C-w>k", opts)
@@ -16,7 +15,7 @@ map("n", "<C-g>", "<Nop>", { silent = true, nowait = true })
 map("t", "<C-Right>", "\x1bf")
 map("t", "<C-Left>", "\x1bb")
 
--- ヘルパー: レジスタの行数を数える
+-- 通知とレジスタ操作
 local function count_lines(text)
 	if text == "" then
 		return 1
@@ -43,12 +42,17 @@ local function notify_random(list, level, fmt_arg)
 	vim.notify(msg, level, { title = selected.title })
 end
 
-local function format_and_save()
+-- フォーマットと保存
+local function format_and_save(on_complete)
 	local bufnr = vim.api.nvim_get_current_buf()
 	local conform = require("conform")
 
 	conform.format({ quiet = true, bufnr = bufnr }, function(err)
 		vim.schedule(function()
+			if not vim.api.nvim_buf_is_valid(bufnr) then
+				return
+			end
+
 			if err and not err:find("No formatters available") then
 				vim.fn.setqflist({ { text = "Conform: " .. err, type = "E" } })
 				vim.cmd("copen")
@@ -56,7 +60,7 @@ local function format_and_save()
 
 			if vim.api.nvim_buf_get_name(bufnr) ~= "" then
 				vim.api.nvim_buf_call(bufnr, function()
-					vim.cmd("write")
+					vim.cmd("noautocmd write")
 				end)
 			end
 
@@ -72,6 +76,10 @@ local function format_and_save()
 					end)
 				end
 			end
+
+			if on_complete then
+				on_complete()
+			end
 		end)
 	end)
 end
@@ -79,8 +87,11 @@ end
 map({ "n", "i", "v" }, "<C-s>", format_and_save, opts)
 
 map({ "n", "v" }, "<leader>sq", function()
-	format_and_save()
-	vim.cmd("bdelete")
+	format_and_save(function()
+		if vim.api.nvim_buf_is_valid(0) then
+			vim.cmd("bdelete")
+		end
+	end)
 end, opts)
 
 map("n", "<leader>q", "<cmd>Bdelete!<CR>", opts)
@@ -131,6 +142,8 @@ end, opts)
 local function select_all()
 	vim.cmd("normal! ggVG")
 end
+
+-- 選択・行編集・ウィンドウ操作
 map({ "n", "v" }, "<C-a>", select_all, opts)
 
 local resize_maps = {
@@ -203,6 +216,7 @@ map("n", "<leader>fc", function()
 	require("spectre").open()
 end, opts)
 
+-- バッファ・設定操作
 for i = 1, 9 do
 	map("n", "<leader>" .. i, function()
 		require("bufferline").go_to(i, true)
@@ -233,6 +247,7 @@ map({ "n", "v" }, "<leader><Down>", ":m .+1<CR>==", opts)
 map("v", "<leader><Up>", ":m '<-2<CR>gv=gv", opts)
 map("v", "<leader><Down>", ":m '>+1<CR>gv=gv", opts)
 
+-- SKK
 vim.api.nvim_create_autocmd("User", {
 	pattern = "skkeleton-initialize-pre",
 	callback = function()
@@ -244,7 +259,7 @@ vim.api.nvim_create_autocmd("User", {
 	end,
 })
 
--- SKK有効時、blink.cmpの補完ウィンドウが開いたま残り続けるバグの対策
+-- SKK有効時、blink.cmpの補完ウィンドウが開いたまま残り続けるバグの対策
 -- (skkeletonが補完テキストの変化をblink.cmpに正しく伝えられず、自動で閉じないため)
 vim.api.nvim_create_autocmd("User", {
 	pattern = "skkeleton-enable-pre",
