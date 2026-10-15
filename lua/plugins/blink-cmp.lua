@@ -26,6 +26,11 @@ return {
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer", "emoji" },
 			providers = {
+				path = {
+					enabled = function()
+						return not vim.tbl_contains({ "markdown", "tex", "plaintex" }, vim.bo.filetype)
+					end,
+				},
 				emoji = {
 					module = "blink-emoji",
 					name = "Emoji",
