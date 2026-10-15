@@ -18,14 +18,6 @@ return {
 			show_buffer_close_icons = false,
 			show_close_icon = false,
 			color_icons = true,
-			offsets = {
-				{
-					filetype = "neo-tree",
-					text = "エクスプローラ",
-					text_align = "center",
-					separator = true,
-				},
-			},
 			hover = {
 				enabled = true,
 				delay = 200,

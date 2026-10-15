@@ -11,6 +11,18 @@ local function skkeleton_mode()
 	end
 end
 
+local function is_ui_buffer()
+	return vim.bo.filetype == "alpha" or vim.bo.filetype == "oil"
+end
+
+local function is_nonterminal_buffer()
+	return vim.bo.buftype ~= "terminal" and not is_ui_buffer()
+end
+
+local function is_regular_buffer()
+	return vim.bo.buftype == "" and not is_ui_buffer()
+end
+
 return {
 	"nvim-lualine/lualine.nvim",
 	event = "VeryLazy",
@@ -26,9 +38,7 @@ return {
 				{
 					"noice",
 					cond = function()
-						return vim.bo.buftype ~= "terminal"
-							and vim.bo.filetype ~= "alpha"
-							and vim.bo.filetype ~= "neo-tree"
+						return is_nonterminal_buffer()
 					end,
 				},
 				{
@@ -61,9 +71,7 @@ return {
 				{
 					"mode",
 					cond = function()
-						return vim.bo.buftype ~= "terminal"
-							and vim.bo.filetype ~= "alpha"
-							and vim.bo.filetype ~= "neo-tree"
+						return is_nonterminal_buffer()
 					end,
 					color = function()
 						local mode_colors = {
@@ -83,9 +91,7 @@ return {
 				{
 					"branch",
 					cond = function()
-						return vim.bo.buftype ~= "terminal"
-							and vim.bo.filetype ~= "alpha"
-							and vim.bo.filetype ~= "neo-tree"
+						return is_nonterminal_buffer()
 					end,
 					color = { fg = "#000000", bg = "#778899" },
 					separator = { right = "" },
@@ -97,11 +103,7 @@ return {
 						if vim.bo.buftype == "terminal" then
 							return ""
 						end
-						local ft = vim.bo.filetype
-						if ft == "neo-tree" then
-							return ""
-						end
-						if ft == "alpha" then
+						if is_ui_buffer() then
 							return ""
 						end
 						if vim.bo.modified then
@@ -124,9 +126,7 @@ return {
 				{
 					"progress",
 					cond = function()
-						return vim.bo.buftype ~= "terminal"
-							and vim.bo.filetype ~= "alpha"
-							and vim.bo.filetype ~= "neo-tree"
+						return is_nonterminal_buffer()
 					end,
 					color = { fg = "#000000", bg = "#778899" },
 				},
@@ -135,14 +135,14 @@ return {
 				{
 					"location",
 					cond = function()
-						return vim.bo.buftype == "" and vim.bo.filetype ~= "alpha" and vim.bo.filetype ~= "neo-tree"
+						return is_regular_buffer()
 					end,
 					color = { fg = "#000000", bg = "#778899" },
 				},
 				{
 					skkeleton_mode,
 					cond = function()
-						return vim.bo.buftype ~= "terminal" and vim.bo.filetype ~= "alpha"
+						return is_nonterminal_buffer()
 					end,
 					color = { fg = "#000000", bg = "#5f676f" },
 					padding = { left = 1, right = 1 },
@@ -151,7 +151,7 @@ return {
 				{
 					"filetype",
 					cond = function()
-						return vim.bo.buftype == "" and vim.bo.filetype ~= "alpha" and vim.bo.filetype ~= "neo-tree"
+						return is_regular_buffer()
 					end,
 					colored = true,
 					padding = { left = 1, right = 1 },
@@ -161,7 +161,7 @@ return {
 				{
 					"encoding",
 					cond = function()
-						return vim.bo.buftype == "" and vim.bo.filetype ~= "alpha" and vim.bo.filetype ~= "neo-tree"
+						return is_regular_buffer()
 					end,
 					padding = { left = 1, right = 1 },
 					color = { fg = "#000000", bg = "#708090" },
