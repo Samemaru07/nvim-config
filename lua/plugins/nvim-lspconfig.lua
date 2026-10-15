@@ -10,44 +10,44 @@ return {
 			capabilities = capabilities,
 		})
 
+		-- プロジェクトマーカがない単発スクリプトは、ファイル自身のディレクトリをルートにする。
+		vim.lsp.config("pyright", {
+			root_dir = function(bufnr, on_dir)
+				local fname = vim.api.nvim_buf_get_name(bufnr)
+				local root = vim.fs.root(fname, {
+					"pyproject.toml",
+					"setup.py",
+					"setup.cfg",
+					"requirements.txt",
+					"Pipfile",
+					"pyrightconfig.json",
+					".git",
+				})
+				on_dir(root or vim.fs.dirname(fname))
+			end,
+		})
+
+		vim.lsp.config("emmet_ls", {
+			filetypes = {
+				"html",
+				"css",
+				"javascriptreact",
+				"typescriptreact",
+			},
+		})
+
+		vim.lsp.config("tailwindcss", {
+			filetypes = {
+				"html",
+				"css",
+				"javascriptreact",
+				"typescriptreact",
+			},
+		})
+
 		vim.diagnostic.config({
 			virtual_text = true,
 			virtual_lines = false,
 		})
 	end,
-
-	-- プロジェクトマーカがない単発スクリプトの場合、CWD全体ではなくそのファイル自身のディレクトリをルートにして無駄な全走査を防ぐ
-	vim.lsp.config("pyright", {
-		root_dir = function(bufnr, on_dir)
-			local fname = vim.api.nvim_buf_get_name(bufnr)
-			local root = vim.fs.root(fname, {
-				"pyproject.toml",
-				"setup.py",
-				"setup.cfg",
-				"requirements.txt",
-				"Pipfile",
-				"pyrightconfig.json",
-				".git",
-			})
-			on_dir(root or vim.fs.dirname(fname))
-		end,
-	}),
-
-	vim.lsp.config("emmet_ls", {
-		filetypes = {
-			"html",
-			"css",
-			"javascriptreact",
-			"typescriptreact",
-		},
-	}),
-
-	vim.lsp.config("tailwindcss", {
-		filetypes = {
-			"html",
-			"css",
-			"javascriptreact",
-			"typescriptreact",
-		},
-	}),
 }
