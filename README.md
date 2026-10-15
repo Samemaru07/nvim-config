@@ -1,8 +1,6 @@
 # Neovim Configure
 
-<!--###### 🇯🇵 日本語 | 🇺🇸 [English](./README.en.md)-->
-
-###### 🇯🇵 日本語 | 🇺🇸 [English](<>)
+###### 🇯🇵 日本語 | 🇺🇸 [English](/README.en.md)
 
 <div align="center">
     <h3>アニメキャラが見守るNeovim設定</h3>
@@ -39,8 +37,8 @@
 ## 📋 前提条件
 
 - OS: Linux (WSLにも対応)
-    - Arch Linux, Ubuntu(WSL)で動作確認済みです。
-    - 本リポジトリではパッケージ管理ツールに関しては、Archの`pacman`, Ubuntuの`apt`を用いて説明しています。
+    - Arch LinuxおよびWSL上のArch Linuxで動作確認済みです。
+    - パッケージ管理にはArch Linuxの`pacman`を使用します。
 
 ## 📁 ディレクトリ構成
 
@@ -58,13 +56,13 @@ nvim/
 
 ## 🚀 インストール
 
+本設定はArch Linuxを対象としています。
+WSL上のArch Linuxでも利用できます。
+
 ##### 0. 事前準備
 
 ```bash
-# Arch Linuxの場合
-sudo pacman -S git curl
-# Ubuntuの場合
-sudo apt install git curl
+sudo pacman -S --needed git curl unzip sudo
 ```
 
 ##### 1. リポジトリのクローン
@@ -75,132 +73,23 @@ git clone https://github.com/Samemaru07/nvim-config ~/.config/nvim
 
 ##### 2. 依存パッケージ等のインストール
 
-Neovimの起動に必要な必須パッケージです。
-
-<details>
-<summary>Archの場合</summary>
+Neovim、Treesitter、LSP、LaTeX、Jupyter、SKKに必要なパッケージと補助ファイルをスクリプトで導入します。
+WSL上のArch Linuxでは`win32yank.exe`も自動展開します。
 
 ```bash
-sudo pacman -S lazygit npm nodejs unzip wl-clipboard deno less zathura python-pip
-pip install --user neovim-remote  # nvr
+~/.config/nvim/install.sh
 ```
 
-</details>
-
-<details>
-<summary>Ubuntuの場合</summary>
+スクリプトは何度実行しても既存のパッケージや辞書を再利用します。
+GitHub連携を利用する場合は、インストール後に認証してください。
 
 ```bash
-sudo apt install lazygit npm nodejs unzip deno less zathura python3-pip
-pip install --user neovim-remote  # nvr
-```
-
-WSL環境では、Windowsクリップボードとの共有に`win32yank.exe`が別途必要です。
-
-```bash
-mkdir -p ~/.local/bin
-curl -sLo /tmp/win32yank.zip https://github.com/equalsraf/win32yank/releases/latest/download/win32yank-x64.zip
-unzip -p /tmp/win32yank.zip win32yank.exe > ~/.local/bin/win32yank.exe
-chmod +x ~/.local/bin/win32yank.exe
-rm /tmp/win32yank.zip
-```
-
-</details>
-
-##### 3. Anaconda環境構築
-
-Jupyter Notebook形式(`.ipynb`)のファイル実行をサポートしています。
-必須ではありません。
-
-Arch Linux・WSLでAnaconda環境(パッケージ含む)は共有されないため、**両OSそれぞれで個別に構築が必要**です。
-
-```bash
-conda create -n py313 python=3.13
-conda activate py313
-pip install pynvim jupyter_client
-```
-
-`core/options.lua`の`python3_host_prog`は以下のパスを想定しています。
-
-```lua
-vim.g.python3_host_prog = vim.fn.expand("~/anaconda3/envs/py313/bin/python")
-```
-
-##### 4. SKK辞書の導入
-
-skkeletonによる日本語入力を利用する場合に必要です。
-必須ではありません。
-
-```bash
-mkdir -p ~/.skk
-curl -o ~/.skk/SKK-JISYO.L https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.L
-```
-
-> **💡 Note:** ユーザー辞書（`~/.skkeleton`）はskkeletonが初回変換時に自動生成するため、手動作成は不要です。
-
-##### 5. TeX環境の構築
-
-LaTeXファイル(`.tex`)をコンパイルおよびプレビューする場合に必要です。
-必須ではありません。
-
-<details>
-<summary>Archの場合</summary>
-
-```bash
-sudo pacman -S texlive-basic texlive-latex texlive-latexextra texlive-luatex texlive-langjapanese zathura zathura-pdf-mupdf
-```
-
-※ ストレージに余裕がある場合のフルインストール環境構築は以下の通りです（`texlive-meta`には日本語環境が含まれないため、個別の指定が必要です）。
-
-```bash
-sudo pacman -S texlive-meta texlive-langjapanese zathura zathura-pdf-mupdf
-```
-
-</details>
-
-<details>
-<summary>Ubuntuの場合</summary>
-
-```bash
-sudo apt install texlive-latex-extra texlive-luatex texlive-lang-japanese latexmk zathura
-```
-
-※ ストレージに余裕がある場合のフルインストール環境構築は以下の通りです。
-
-```bash
-sudo apt install texlive-full zathura
-```
-
-</details>
-
-##### 6. GitHub CLIの導入と認証
-
-octo.nvimによるGitHub連携 (Issue / PR操作) を利用する場合に必要です。
-必須ではありません。
-
-<details>
-<summary>Archの場合</summary>
-
-```bash
-sudo pacman -S github-cli
 gh auth login
 ```
 
-</details>
+> **💡 Note:** ユーザー辞書（`~/.skkeleton`）はskkeletonが初回変換時に自動生成します。
 
-<details>
-<summary>Ubuntuの場合</summary>
-
-```bash
-sudo apt install gh
-gh auth login
-```
-
-</details>
-
-> **💡 Note:** `gh auth login` でブラウザまたは認証トークンを用いてGitHubアカウントへログインしてください。
-
-##### 7. 初回起動
+##### 3. 初回起動
 
 ```bash
 nvim
@@ -214,21 +103,21 @@ nvim
 <details>
 <summary>UI</summary>
 
-| プラグイン名                                                        | 説明                     |
-| ------------------------------------------------------------------- | ------------------------ |
-| [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) | アイコン表示             |
-| [bufferline.nvim](https://github.com/akinsho/bufferline.nvim)       | バッファライン表示       |
-| [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)        | ステータスライン         |
-| [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim)       | ターミナルトグル         |
-| [trouble.nvim](https://github.com/folke/trouble.nvim)               | 診断・参照の一覧表示     |
-| [kanagawa.nvim](https://github.com/rebelot/kanagawa.nvim)           | カラースキーム           |
-| [alpha-nvim](https://github.com/goolord/alpha-nvim)                 | ダッシュボード           |
-| [hlchunk.nvim](https://github.com/shellRaining/hlchunk.nvim)        | インデントハイライト     |
-| [noice.nvim](https://github.com/folke/noice.nvim)                   | UI拡張                   |
-| [nui.nvim](https://github.com/MunifTanjim/nui.nvim)                 | UI部品ライブラリ         |
-| [nvim-notify](https://github.com/rcarriga/nvim-notify)              | 通知システム             |
-| [which-key.nvim](https://github.com/folke/which-key.nvim)           | キーバインド表示         |
-| [todo-comments.nvim](https://github.com/folke/todo-comments.nvim)   | TODOコメント強調         |
+| プラグイン名                                                        | 説明                 |
+| ------------------------------------------------------------------- | -------------------- |
+| [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) | アイコン表示         |
+| [bufferline.nvim](https://github.com/akinsho/bufferline.nvim)       | バッファライン表示   |
+| [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)        | ステータスライン     |
+| [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim)       | ターミナルトグル     |
+| [trouble.nvim](https://github.com/folke/trouble.nvim)               | 診断・参照の一覧表示 |
+| [kanagawa.nvim](https://github.com/rebelot/kanagawa.nvim)           | カラースキーム       |
+| [alpha-nvim](https://github.com/goolord/alpha-nvim)                 | ダッシュボード       |
+| [hlchunk.nvim](https://github.com/shellRaining/hlchunk.nvim)        | インデントハイライト |
+| [noice.nvim](https://github.com/folke/noice.nvim)                   | UI拡張               |
+| [nui.nvim](https://github.com/MunifTanjim/nui.nvim)                 | UI部品ライブラリ     |
+| [nvim-notify](https://github.com/rcarriga/nvim-notify)              | 通知システム         |
+| [which-key.nvim](https://github.com/folke/which-key.nvim)           | キーバインド表示     |
+| [todo-comments.nvim](https://github.com/folke/todo-comments.nvim)   | TODOコメント強調     |
 
 </details>
 
@@ -268,15 +157,15 @@ nvim
 <details>
 <summary>エディタ</summary>
 
-| プラグイン名                                                                                  | 説明             |
-| --------------------------------------------------------------------------------------------- | ---------------- |
-| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                         | シンタックス解析・折り畳み |
-| [nvim-autopairs](https://github.com/windwp/nvim-autopairs)                                    | 括弧自動補完     |
-| [Comment.nvim](https://github.com/numToStr/Comment.nvim)                                      | コメントトグル   |
-| [nvim-surround](https://github.com/kylechui/nvim-surround)                                    | 囲み文字操作     |
-| [vim-matchup](https://github.com/andymass/vim-matchup)                                        | 対応する括弧の強調 |
-| [emmet-vim](https://github.com/mattn/emmet-vim)                                               | HTML/CSS展開     |
-| [nvim-ts-autotag](https://github.com/windwp/nvim-ts-autotag)                                  | HTMLタグ自動補完 |
+| プラグイン名                                                          | 説明                       |
+| --------------------------------------------------------------------- | -------------------------- |
+| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | シンタックス解析・折り畳み |
+| [nvim-autopairs](https://github.com/windwp/nvim-autopairs)            | 括弧自動補完               |
+| [Comment.nvim](https://github.com/numToStr/Comment.nvim)              | コメントトグル             |
+| [nvim-surround](https://github.com/kylechui/nvim-surround)            | 囲み文字操作               |
+| [vim-matchup](https://github.com/andymass/vim-matchup)                | 対応する括弧の強調         |
+| [emmet-vim](https://github.com/mattn/emmet-vim)                       | HTML/CSS展開               |
+| [nvim-ts-autotag](https://github.com/windwp/nvim-ts-autotag)          | HTMLタグ自動補完           |
 
 </details>
 
@@ -410,8 +299,8 @@ nvim
 <details>
 <summary>折り畳み</summary>
 
-| キー | モード | 動作                         |
-| ---- | ------ | ---------------------------- |
+| キー | モード | 動作                           |
+| ---- | ------ | ------------------------------ |
 | `zc` | n      | カーソル位置の折り畳みを閉じる |
 | `zo` | n      | カーソル位置の折り畳みを開く   |
 | `za` | n      | 折り畳みの開閉を切り替える     |
@@ -423,53 +312,53 @@ nvim
 <details>
 <summary>ファイル・検索・バッファ</summary>
 
-| キー          | モード | 動作                                          |
-| ------------- | ------ | --------------------------------------------- |
-| `<leader>ff`  | n      | ファイル検索                                  |
-| `<leader>fg`  | n      | 全ファイル検索（grep）                        |
-| `<leader>fb`  | n      | バッファ一覧                                  |
-| `<leader>fh`  | n      | ヘルプタグ検索                                |
-| `<leader>fc`  | n      | 検索置換UI（Spectre）                         |
-| `<leader>sr`  | n      | Spectre切り替え                               |
-| `<leader>bd`  | n      | バッファ削除                                  |
-| `<leader>.`   | n      | 次のバッファへ                                |
-| `<leader>,`   | n      | 前のバッファへ                                |
-| `<leader>1-9` | n      | バッファ1〜9へ移動                            |
-| `<leader>bv`  | n, v   | 垂直分割                                      |
-| `<leader>bh`  | n, v   | 水平分割                                      |
-| `<leader>g`   | n      | LazyGit起動                                   |
-| `<leader>gp`  | n      | PR一覧表示 (Octo)                             |
-| `<leader>o`   | n      | Oil起動 (フローティング)                      |
-| `q`           | n      | Oil終了 (oilバッファ内)                       |
-| `<C-s>`       | n      | 変更保存 (oilバッファ内)                      |
-| `-`           | n      | 親ディレクトリへ移動 (oilバッファ内)          |
+| キー          | モード | 動作                                 |
+| ------------- | ------ | ------------------------------------ |
+| `<leader>ff`  | n      | ファイル検索                         |
+| `<leader>fg`  | n      | 全ファイル検索（grep）               |
+| `<leader>fb`  | n      | バッファ一覧                         |
+| `<leader>fh`  | n      | ヘルプタグ検索                       |
+| `<leader>fc`  | n      | 検索置換UI（Spectre）                |
+| `<leader>sr`  | n      | Spectre切り替え                      |
+| `<leader>bd`  | n      | バッファ削除                         |
+| `<leader>.`   | n      | 次のバッファへ                       |
+| `<leader>,`   | n      | 前のバッファへ                       |
+| `<leader>1-9` | n      | バッファ1〜9へ移動                   |
+| `<leader>bv`  | n, v   | 垂直分割                             |
+| `<leader>bh`  | n, v   | 水平分割                             |
+| `<leader>g`   | n      | LazyGit起動                          |
+| `<leader>gp`  | n      | PR一覧表示 (Octo)                    |
+| `<leader>o`   | n      | Oil起動 (フローティング)             |
+| `q`           | n      | Oil終了 (oilバッファ内)              |
+| `<C-s>`       | n      | 変更保存 (oilバッファ内)             |
+| `-`           | n      | 親ディレクトリへ移動 (oilバッファ内) |
 
 Alphaダッシュボードでは、次のバッファローカルキーマップを使用できます。
 
-| キー | モード | 動作                       |
-| ---- | ------ | -------------------------- |
-| `f`  | n      | Telescopeでファイルを検索  |
-| `e`  | n      | Oilをフローティングで起動  |
-| `q`  | n      | Neovimを終了               |
+| キー | モード | 動作                      |
+| ---- | ------ | ------------------------- |
+| `f`  | n      | Telescopeでファイルを検索 |
+| `e`  | n      | Oilをフローティングで起動 |
+| `q`  | n      | Neovimを終了              |
 
 </details>
 
 <details>
 <summary>LSP / 診断</summary>
 
-| キー         | モード | 動作             |
-| ------------ | ------ | ---------------- |
-| `K`          | n      | ホバー表示       |
-| `gd`         | n      | 定義へジャンプ   |
-| `gr`         | n      | 参照一覧表示     |
+| キー         | モード | 動作                         |
+| ------------ | ------ | ---------------------------- |
+| `K`          | n      | ホバー表示                   |
+| `gd`         | n      | 定義へジャンプ               |
+| `gr`         | n      | 参照一覧表示                 |
 | `<leader>;`  | n      | ドキュメントシンボル一覧表示 |
-| `<leader>rn` | n      | リネーム         |
-| `<leader>ca` | n      | コードアクション |
-| `[d`         | n      | 前の診断へ移動   |
-| `]d`         | n      | 次の診断へ移動   |
-| `<leader>xt` | n      | TODO一覧         |
-| `<leader>xx` | n      | 診断一覧         |
-| `<leader>xq` | n      | quickfix一覧     |
+| `<leader>rn` | n      | リネーム                     |
+| `<leader>ca` | n      | コードアクション             |
+| `[d`         | n      | 前の診断へ移動               |
+| `]d`         | n      | 次の診断へ移動               |
+| `<leader>xt` | n      | TODO一覧                     |
+| `<leader>xx` | n      | 診断一覧                     |
+| `<leader>xq` | n      | quickfix一覧                 |
 
 </details>
 
@@ -486,12 +375,12 @@ Alphaダッシュボードでは、次のバッファローカルキーマップ
 <details>
 <summary>日本語入力</summary>
 
-| キー    | モード  | 動作             |
-| ------- | ------- | ---------------- |
-| `<C-j>` | i, c    | SKKトグル        |
-| `<C-g>` | SKK     | SKK終了          |
-| `q`     | SKK     | カタカナ変換     |
-| `Q`     | SKK     | 半角カタカナ変換 |
+| キー    | モード | 動作             |
+| ------- | ------ | ---------------- |
+| `<C-j>` | i, c   | SKKトグル        |
+| `<C-g>` | SKK    | SKK終了          |
+| `q`     | SKK    | カタカナ変換     |
+| `Q`     | SKK    | 半角カタカナ変換 |
 
 </details>
 
