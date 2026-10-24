@@ -22,6 +22,7 @@ return {
 			"tailwindcss",
 			"intelephense",
 			"sqlls",
+			"qmljs",
 		},
 	},
 }
