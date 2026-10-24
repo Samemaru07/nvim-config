@@ -30,7 +30,13 @@ return {
 		},
 		formatters = {
 			prettier = {
-				prepend_args = { "--tab-width", "4" },
+				prepend_args = function(_, ctx)
+					-- .jsoncの末尾カンマは付けない
+					if ctx.filename:match("%.jsonc$") then
+						return { "--tab-width", "4", "--trailing-comma", "none" }
+					end
+					return { "--tab-width", "4" }
+				end,
 			},
 			latexindent = {
 				prepend_args = { "-g", "/dev/null" },
