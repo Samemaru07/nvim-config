@@ -23,6 +23,7 @@ return {
 			tex = { "latexindent" },
 			php = { "pint" },
 			sql = { "pg_format" },
+			qml = { "qmlformat" },
 		},
 		format_on_save = {
 			timeout_ms = 500,
@@ -43,6 +44,10 @@ return {
 			},
 			pint = {
 				args = { "--config", vim.fn.expand("~/.config/nvim/pint.json"), "$FILENAME" },
+			},
+			qmlformat = {
+				-- ArchのQT6はPATH外にあるため、フルパスで指定する
+				command = "/usr/lib/qt6/bin/qmlformat",
 			},
 		},
 	},
