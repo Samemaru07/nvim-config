@@ -45,6 +45,11 @@ return {
 			},
 		})
 
+		vim.lsp.config("qmlls", {
+			cmd = { "/usr/lib/qt6/bin/qmlls", "-E" },
+		})
+		vim.lsp.enable("qmlls")
+
 		vim.diagnostic.config({
 			virtual_text = true,
 			virtual_lines = false,
