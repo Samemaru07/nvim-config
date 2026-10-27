@@ -2,7 +2,7 @@ return {
 	"iamcco/markdown-preview.nvim",
 	ft = { "markdown" },
 	cmd = { "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle" },
-	build = "cd app && npm install",
+    build = "cd app && npm install && git restore yarn.lock",
 	init = function()
 		-- デフォルトのブラウザ起動処理を差し替え、Hyperのwebview機能でプレビューURLを開く。
 		-- Hyperの分割ペイン (webview表示待受中) へ貼り付けて使う想定
