@@ -6,9 +6,6 @@ return {
 		"nvim-tree/nvim-web-devicons",
 	},
 	cmd = "Octo",
-	keys = {
-		{ "<leader>gp", "<cmd>Octo pr list<cr>", desc = "Octo PR List" },
-	},
 	opts = {},
 	config = function(_, opts)
 		require("octo").setup(opts)
